@@ -14,6 +14,9 @@
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 $functionContentAdd =
 @'
+##########################################################################################################
+#                                               ADD SCRIPTS                                              #
+##########################################################################################################
 function Format-JsonValues {
     param (
         [string]$jsonPath
