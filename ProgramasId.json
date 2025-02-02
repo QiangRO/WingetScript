@@ -1,0 +1,19 @@
+{
+  "developmentPrograms": [
+    "BlenderFoundation.Blender",
+    "Schniz.fnm",
+    "Git.Git",
+    "ResponsivelyApp.ResponsivelyApp",
+    "lukehaas.RunJS",
+    "Microsoft.SQLServer.2022.Developer",
+    "Microsoft.SQLServerManagementStudio",
+    "Unity.UnityHub",
+    "Oracle.VirtualBox",
+    "Microsoft.VisualStudio.2022.Community",
+    "Microsoft.VisualStudioCode",
+    "Microsoft.WindowsTerminal",
+    "ApacheFriends.Xampp.8.2",
+    "Nuevo.Programa.ID",
+    "Prueba"
+  ]
+}
