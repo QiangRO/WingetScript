@@ -520,7 +520,8 @@ winget pin add --id Unity.Unity.2023 --blocking
 winget pin add --id BlenderFoundation.Blender --blocking
 winget pin add --id BlenderFoundation.Blender.LTS.3.3 --blocking
 winget pin add --id BlenderFoundation.Blender.LTS.3.6 --blocking
-
+winget pin add --id Ubisoft.Connect --blocking
+winget pin add --id Microsoft.Edge --blocking
 '@
 
 $profilePath = $PROFILE
