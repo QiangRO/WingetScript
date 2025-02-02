@@ -1,19 +1,62 @@
 {
+  "programs": [
+    "Asus.ArmouryCrate",
+    "CharlesMilette.TranslucentTB",
+    "CPUID.CPU-Z",
+    "Crucial.StorageExecutive",
+    "CrystalDewWorld.CrystalDiskInfo",
+    "CrystalDewWorld.CrystalDiskMark",
+    "dev47apps.DroidCam",
+    "DominikReichl.KeePass",
+    "Google.GoogleDrive",
+    "JGraph.Draw",
+    "Microsoft.MouseWithoutBorders",
+    "Microsoft.Office",
+    "Microsoft.PCManager",
+    "ModernFlyouts.ModernFlyouts",
+    "RARLab.WinRAR",
+    "REALiX.HWiNFO",
+    "Spotify.Spotify",
+    "Toinane.Colorpicker",
+    "WinDirStat.WinDirStat"
+  ],
   "developmentPrograms": [
+    "ApacheFriends.Xampp.8.2",
     "BlenderFoundation.Blender",
-    "Schniz.fnm",
     "Git.Git",
-    "ResponsivelyApp.ResponsivelyApp",
     "lukehaas.RunJS",
     "Microsoft.SQLServer.2022.Developer",
     "Microsoft.SQLServerManagementStudio",
-    "Unity.UnityHub",
-    "Oracle.VirtualBox",
     "Microsoft.VisualStudio.2022.Community",
     "Microsoft.VisualStudioCode",
     "Microsoft.WindowsTerminal",
-    "ApacheFriends.Xampp.8.2",
-    "Nuevo.Programa.ID",
-    "Prueba"
+    "Oracle.VirtualBox",
+    "ResponsivelyApp.ResponsivelyApp",
+    "Schniz.fnm",
+    "Unity.UnityHub"
+  ],
+  "browserPrograms": [
+    "Brave.Brave",
+    "DuckDuckGo.DesktopBrowser",
+    "Google.Chrome",
+    "Mozilla.Firefox"
+  ],
+  "gamingPrograms": [
+    "Blizzard.BattleNet",
+    "ElectronicArts.EADesktop",
+    "EpicGames.EpicGamesLauncher",
+    "Ubisoft.Connect",
+    "Valve.Steam",
+    "Valve.SteamCMD"
+  ],
+  "socialNetworkPrograms": [
+    "9NKSQGP7F2NH",
+    "Discord.Discord",
+    "Telegram.TelegramDesktop"
+  ],
+  "consolePrograms": [
+    "JanDeDobbeleer.OhMyPosh",
+    "Microsoft.PowerShell",
+    "Terminal-Icons"
   ]
 }

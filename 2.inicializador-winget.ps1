@@ -5,7 +5,7 @@ New-Item -ItemType File -Path $PROFILE -Force
 $scriptWingetPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 function Start-ScriptInstall {
-    $wingetInstallScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\1.1.script-install.ps1"
+    $wingetInstallScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\1.script-install.ps1"
     Write-Host "Inicializando el script de Winget Install: $wingetInstallScriptPath" -ForegroundColor Cyan
     & $wingetInstallScriptPath
 }
@@ -52,7 +52,7 @@ Write-Host "Los scripts han sido iniciados"
 
 #Copiado de ID'S de programas
 Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
-$scriptIDPath = Join-Path -Path $scriptWingetPath -ChildPath "ProgramasId.ps1"
+$scriptIDPath = Join-Path -Path $scriptWingetPath -ChildPath "ProgramasId.json"
 
 $profilePath = $PROFILE
 $profileDir = [System.IO.Path]::GetDirectoryName($profilePath) #Obtiene el directorio de una ruta

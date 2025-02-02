@@ -102,10 +102,14 @@ function Get-ProgramJson {
 #VARIABLES GLOBALES
 $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
 
-$scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-$parentPath = Split-Path -Path $scriptPath -Parent
+# $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+# $parentPath = Split-Path -Path $scriptPath -Parent
 
-
+# function Start-CopyKeepass {
+#     $keepassScriptPath = Join-Path -Path $parentPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
+#     Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
+#     & $keepassScriptPath
+# }
 
 ##########################################################################################################
 #                                           DEPENDENCY SCRIPTS                                           #
@@ -322,12 +326,6 @@ function Add-Initialization-Line {
         }
     }
 }
-
-# function Start-CopyKeepass {
-#     $keepassScriptPath = Join-Path -Path $parentPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
-#     Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
-#     & $keepassScriptPath
-# }
 
 ##########################################################################################################
 #                                          INSTALLATION SCRIPTS                                          #
