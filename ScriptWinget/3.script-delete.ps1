@@ -85,7 +85,6 @@ function Uninstall-ConsolePrograms {
 function Uninstall-All {
     Write-Host "Desinstalando todos los programas de la lista." -ForegroundColor DarkBlue
     Uninstall-Programs
-    Uninstall-Programs
     Uninstall-DevelopmentPrograms
     Uninstall-Browsers
     Uninstall-Games
