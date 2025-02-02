@@ -13,7 +13,7 @@
 #                                                                                                        #
 ##########################################################################################################
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-$functionContentUpdate = @'
+$functionContentUpdate = 
 
 ##########################################################################################################
 #                                             UPDATE SCRIPTS                                             #
@@ -24,7 +24,7 @@ function Update-Programs {
     $programs = Get-ProgramJson -category "programs"
     foreach ($programa in $programs) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $programs
+        winget upgrade -e --id $programa
     }
 }
 
@@ -35,7 +35,7 @@ function Update-DevelopmentPrograms {
 
     foreach ($programa in $developmentPrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $developmentPrograms
+        winget upgrade -e --id $programa
     }
 }
 
@@ -46,7 +46,7 @@ function Update-Browsers {
 
     foreach ($programa in $browserPrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $browserPrograms
+        winget upgrade -e --id $programa
     }
 }
 
@@ -57,7 +57,7 @@ function Update-Games {
 
     foreach ($programa in $gamingPrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $gamingPrograms
+        winget upgrade -e --id $programa
     }
 }
 
@@ -68,7 +68,7 @@ function Update-SocialNetworks {
 
     foreach ($programa in $socialNetworkPrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $socialNetworkPrograms
+        winget upgrade -e --id $programa
     }
 }
 
@@ -79,15 +79,20 @@ function Update-ConsolePrograms {
 
     foreach ($programa in $consolePrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
-        winget update $consolePrograms
+        winget upgrade -e --id $programa
     }
 }
 
 function Update-All {
     Write-Host "Actualizando todos los programas instalados." -ForegroundColor Cyan
-    winget upgrade --all
+    Update-Programs
+    Update-DevelopmentPrograms
+    Update-Browsers
+    Update-Games
+    Update-SocialNetworks
+    Update-ConsolePrograms
 }
-'@
+
 
 $profilePath = $PROFILE
 
