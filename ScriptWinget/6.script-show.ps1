@@ -242,6 +242,7 @@ function Show-AddHelp {
     Write-Host "`t2. Add-MenuWindows10." -ForegroundColor DarkMagenta
     Write-Host "`t3. Uninstall-MenuWindows10." -ForegroundColor DarkMagenta
     Write-Host "`t4. Test-Color." -ForegroundColor DarkMagenta
+    Write-Host "`tShow-AddHelp.(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
