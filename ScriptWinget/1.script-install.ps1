@@ -491,6 +491,10 @@ function Install-ConsolePrograms {
                 Install-Module -Name $programa -Repository PSGallery
                 Add-Initialization-Line -programID $programa
             }
+            "posh-git"{
+                Install-Module $programa -Scope CurrentUser -Force
+                Add-PoshGitToProfile
+            }
             default {
                 winget install -e --id $programa
             }

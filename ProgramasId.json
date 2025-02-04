@@ -57,6 +57,7 @@
   "consolePrograms": [
     "JanDeDobbeleer.OhMyPosh",
     "Microsoft.PowerShell",
-    "Terminal-Icons"
+    "Terminal-Icons",
+    "posh-git"
   ]
 }
