@@ -40,6 +40,8 @@ function Start-ScriptShow {
 }
 
 
+
+
 Write-Host "Inicializando todos los scripts de Winget"
 Start-ScriptInstall
 Start-ScriptDownload
