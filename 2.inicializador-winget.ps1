@@ -39,6 +39,7 @@ function Start-ScriptShow {
     & $wingetShowScriptPath
 }
 
+
 Write-Host "Inicializando todos los scripts de Winget"
 Start-ScriptInstall
 Start-ScriptDownload
