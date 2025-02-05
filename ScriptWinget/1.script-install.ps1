@@ -528,6 +528,7 @@ winget pin add --id Ubisoft.Connect --blocking
 winget pin add --id Microsoft.Edge --blocking
 '@
 
+
 $profilePath = $PROFILE
 
 $profileDir = [System.IO.Path]::GetDirectoryName($profilePath)
