@@ -11,4 +11,4 @@ winget install -e --id Microsoft.PowerShell
 
 winget install -e --id Microsoft.WindowsTerminal
 
-winget settings  
+winget settings
