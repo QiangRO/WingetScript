@@ -1,7 +1,3 @@
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
-New-Item -ItemType File -Path $PROFILE -Force
-
 $scriptWingetPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 function Start-ScriptInstall {

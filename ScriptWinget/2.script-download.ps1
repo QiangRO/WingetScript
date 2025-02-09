@@ -12,7 +12,6 @@
 #     * Save-ConsolePrograms.                                                                            #
 #                                                                                                        #
 ##########################################################################################################
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 $functionContentDownload = @'
 ##########################################################################################################
 #                                            DOWNLOAD SCRIPTS                                            #

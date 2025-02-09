@@ -46,8 +46,6 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
 $functionContentInstall = @'
 
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)

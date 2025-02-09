@@ -12,7 +12,6 @@
 #     * Uninstall-ConsolePrograms.                                                                       #
 #                                                                                                        #
 ##########################################################################################################
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 $functionContentDelete = @'
 ##########################################################################################################
 #                                             DELETE SCRIPTS                                             #

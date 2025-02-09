@@ -1,5 +1,3 @@
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent 
 
 $fontDirectories = @(

@@ -1,5 +1,3 @@
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
-
 Write-Host "Instalando configuracion Inicial" -ForegroundColor DarkBlue
 
 #Instalacion de programas iniciales
