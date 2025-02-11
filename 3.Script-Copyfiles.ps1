@@ -1,3 +1,23 @@
+##########################################################################################################
+#                                    ADMINISTRADOR PERMISSIONS REQUIRED                                  #
+#                                                                                                        #
+#  File that will initialize the scripts and create new powershell instances.                            #
+#                                                                                                        #
+#     * Start-InstallFonts                                                                               #
+#     * Start-CopyKeepass                                                                                #
+#     * Start-CopyOhMyPosh                                                                               #
+#     * Start-CopyTerminalSettings                                                                       #
+#     * Start-CopyWingetSettings                                                                         #
+#     * TestExecute-Functions                                                                            #
+#     * Start-ThirdScript                                                                                #
+#     * Main.                                                                                            #
+#                                                                                                        #
+##########################################################################################################
+
+param(
+    [string[]]$FunctionNames
+)
+#Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 function Start-InstallFonts {
@@ -30,9 +50,26 @@ function Start-CopyWingetSettings {
     & $wingetScriptPath
 }
 
-Write-Host "Inicializando todos los scripts de copiado de archivos" -ForegroundColor DarkBlue
-Start-InstallFonts
-Start-CopyOhMyPosh
-Start-CopyTerminalSettings
-Start-CopyWingetSettings
-Write-Host "Todos los scripts han sido ejecutados." -ForegroundColor Green
+function TestExecute-Functions {
+    foreach ($FunctionName in $FunctionNames) {
+        if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
+            $FunctionName
+        }else {
+            Write-Host "La función '$FunctionName' no existe." -ForegroundColor Red
+        }
+    }
+}
+function Main {
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-InstallFonts', 'Start-CopyOhMyPosh', 'Start-CopyTerminalSettings', 'Start-CopyWingetSettings'}"
+}
+if ($FunctionNames) {
+    TestExecute-Functions
+}else {
+    Main
+}
+# Write-Host "Inicializando todos los scripts de copiado de archivos" -ForegroundColor DarkBlue
+# Start-InstallFonts
+# Start-CopyOhMyPosh
+# Start-CopyTerminalSettings
+# Start-CopyWingetSettings
+# Write-Host "Todos los scripts han sido ejecutados." -ForegroundColor Green
