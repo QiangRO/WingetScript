@@ -20,6 +20,15 @@ param(
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
+$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
+$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
+$Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
+
+Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
+function Write-Message {
+    Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
+}
+
 function Start-InstallFonts {
     $fontScriptPath = Join-Path -Path $scriptPath -ChildPath "Fonts\install-fonts.ps1"
     Write-Host "Inicializando el script de instalación de fuentes: $fontScriptPath" -ForegroundColor Cyan
@@ -60,7 +69,7 @@ function TestExecute-Functions {
     }
 }
 function Main {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-InstallFonts', 'Start-CopyOhMyPosh', 'Start-CopyTerminalSettings', 'Start-CopyWingetSettings'}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Write-Message'}"
 }
 if ($FunctionNames) {
     TestExecute-Functions

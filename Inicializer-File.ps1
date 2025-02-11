@@ -3,30 +3,32 @@
 #                                                                                                        #
 #  File that will initialize the scripts and create new powershell instances.                            #
 #                                                                                                        #
-#     * TestExecute-Functions.                                                                           #
+#     * Test-Functions.                                                                                  #
 #     * Main.                                                                                            #
-#     * Initial-Function                                                                                 #
-#     * Start-SecondScript                                                                               #
 #                                                                                                        #
 ##########################################################################################################
-
 param (
     [string[]]$FunctionNames
 )
-
-#Rutas
+#Ruta directorio padre
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
-$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
+#Rutas archivos
+$First = Join-Path -Path $scriptPath -ChildPath "1.Script-Initial"
+$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps11"
 $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
-Write-Host "Ejecutando el primer script" -ForegroundColor Cyan
 function Write-Message {
-    Write-Host "Ejecutando el primer script" -ForegroundColor Cyan
+    Write-Host "Hola $scriptPath" -ForegroundColor Cyan
+    Write-Host "Hola $scriptPath2" -ForegroundColor Cyan
+    Write-Host "Hola $scriptIdProgramPath" -ForegroundColor Cyan
 }
 
-function TestExecute-Functions {
+function Write-Message2 {
+    Write-Host "Mundo" -ForegroundColor Cyan
+}
+
+function Test-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
             & $FunctionName
@@ -36,30 +38,17 @@ function TestExecute-Functions {
     }
 }
 
-function Initial-Function{
-    winget upgrade -e --id Microsoft.AppInstaller
-
-    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
-
-    winget install -e --id Microsoft.PowerShell
-
-    winget install -e --id Microsoft.WindowsTerminal
-
-    winget settings
-}
-
-function Start-SecondScript{
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames ''}"
-}
-
-#'Initial-Function',
 function Main {
     Write-Message
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$First' -FunctionNames 'Start-SecondScript'}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$First' -FunctionNames 'Initial-Function' }"
+
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-ScriptInstall', 'Start-ScriptDownload', 'Start-ScriptDelete', 'Start-ScriptUpdate', 'Start-ScriptAdd', 'Start-ScriptShow'}"
+
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-InstallFonts', 'Start-CopyOhMyPosh', 'Start-CopyTerminalSettings', 'Start-CopyWingetSettings'}"
 }
 
 if ($FunctionNames) {
-    TestExecute-Functions
+    Test-Functions
 } else {
     Main
 }

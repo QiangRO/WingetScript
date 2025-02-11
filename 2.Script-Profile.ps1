@@ -22,7 +22,14 @@ param(
 )
 #Rutas
 $scriptWingetPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
+$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
+
+Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
+function Write-Message {
+    Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
+}
 
 function Start-ScriptInstall {
     $wingetInstallScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\1.script-install.ps1"
@@ -86,11 +93,11 @@ function TestExecute-Functions {
 }
 
 function Start-ThirdScript {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' }"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames ''}"
 }
 
 function Main {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-ScriptInstall', 'Start-ScriptDownload', 'Start-ScriptDelete', 'Start-ScriptUpdate', 'Start-ScriptAdd', 'Start-ScriptShow', 'Start-CopyJSONPrograms', 'Create-ProfilePowershell', 'Start-ThirdScript'}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Write-Message'}"
 }
 
 if ($FunctionNames) {
