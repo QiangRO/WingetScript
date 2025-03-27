@@ -24,8 +24,6 @@ $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 # $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 # $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
-Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
-
 function Write-Message {
     Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
 }
@@ -63,11 +61,20 @@ function Start-CopyWingetSettings {
 function TestExecute-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
-            $FunctionName
-        }else {
+            & $FunctionName
+        } else {
             Write-Host "La función '$FunctionName' no existe." -ForegroundColor Red
         }
     }
+}
+function Start-AllCopyfilesFunctions {
+    Write-Host "Inicializando todos los scripts de copiado de archivos" -ForegroundColor DarkBlue
+    Start-InstallFonts
+    Start-CopyOhMyPosh
+    Start-CopyTerminalSettings
+    Start-CopyWingetSettings
+    Write-Host "Todos los scripts han sido ejecutados." -ForegroundColor Green
+
 }
 function Main {
     Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Write-Message'}"
@@ -77,9 +84,3 @@ if ($FunctionNames) {
 }else {
     Main
 }
-# Write-Host "Inicializando todos los scripts de copiado de archivos" -ForegroundColor DarkBlue
-# Start-InstallFonts
-# Start-CopyOhMyPosh
-# Start-CopyTerminalSettings
-# Start-CopyWingetSettings
-# Write-Host "Todos los scripts han sido ejecutados." -ForegroundColor Green

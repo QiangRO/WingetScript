@@ -16,14 +16,10 @@ param (
 
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 
-# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
-
-Write-Host "Ejecutando el primer script" -ForegroundColor Cyan
 function Write-Message {
-    Write-Host "Ejecutando el primer script" -ForegroundColor Cyan
+    Write-Host "Ejecutando el primer script, llamando al segundo script" -ForegroundColor Cyan
 }
 
 function TestExecute-Functions {
@@ -48,14 +44,9 @@ function Initial-Function{
     winget settings
 }
 
-function Start-SecondScript{
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second'}"
-}
-
 #'Initial-Function',
 function Main {
-    Write-Message
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$First' -FunctionNames 'Start-SecondScript'}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
 }
 
 if ($FunctionNames) {

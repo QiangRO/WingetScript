@@ -21,16 +21,8 @@ param(
     [string[]]$FunctionNames
 )
 #Rutas
-$scriptWingetPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
-
-Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
-
-function Write-Message {
-    Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
-}
+$scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+$Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 function Start-ScriptInstall {
     $wingetInstallScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\1.script-install.ps1"
@@ -86,19 +78,26 @@ function Create-ProfilePowershell {
 function TestExecute-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
-            $FunctionName
-        }else {
+            & $FunctionName
+        } else {
             Write-Host "La función '$FunctionName' no existe." -ForegroundColor Red
         }
     }
 }
 
-function Start-ThirdScript {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third'}"
+function Start-AllProfileFunctions {
+    Write-Host "Ejecutando el segundo script`nEjecutando todas las funciones" -ForegroundColor Cyan
+    Start-ScriptInstall
+    Start-ScriptDownload
+    Start-ScriptDelete
+    Start-ScriptUpdate
+    Start-ScriptAdd
+    Start-ScriptShow
 }
 
 function Main {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-ThirdScript'}"
+    Write-Host "Llamando al tercer script"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-AllCopyfilesFunctions' }"
 }
 
 if ($FunctionNames) {
@@ -106,12 +105,3 @@ if ($FunctionNames) {
 }else {
     Main
 }
-
-# Write-Host "Inicializando todos los scripts de Winget"
-# Start-ScriptInstall
-# Start-ScriptDownload
-# Start-ScriptDelete
-# Start-ScriptUpdate
-# Start-ScriptAdd
-# Start-ScriptShow
-# Write-Host "Los scripts han sido iniciados"
