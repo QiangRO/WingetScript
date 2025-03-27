@@ -73,11 +73,10 @@ function Start-AllCopyfilesFunctions {
     Start-CopyOhMyPosh
     Start-CopyTerminalSettings
     Start-CopyWingetSettings
-    Write-Host "Todos los scripts han sido ejecutados." -ForegroundColor Green
-
 }
 function Main {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Write-Message'}"
+    Write-Host "Ejecucion de scripts finalizada" -ForegroundColor Cyan
+    # Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Write-Message'}"
 }
 if ($FunctionNames) {
     TestExecute-Functions

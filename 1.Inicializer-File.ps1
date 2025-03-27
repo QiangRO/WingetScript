@@ -44,8 +44,8 @@ function Initial-Function{
     winget settings
 }
 
-#'Initial-Function',
 function Main {
+    Write-Host "Llamando al segundo script" -ForegroundColor Cyan
     Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
 }
 
