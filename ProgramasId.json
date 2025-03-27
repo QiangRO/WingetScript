@@ -1,5 +1,6 @@
 {
   "programs": [
+    "Anjok07.UltimateVocalRemover",
     "Asus.ArmouryCrate",
     "CharlesMilette.TranslucentTB",
     "CPUID.CPU-Z",
@@ -24,6 +25,7 @@
     "ApacheFriends.Xampp.8.2",
     "BlenderFoundation.Blender",
     "Git.Git",
+    "Insecure.Nmap",
     "lukehaas.RunJS",
     "Microsoft.SQLServer.2022.Developer",
     "Microsoft.SQLServerManagementStudio",
@@ -32,8 +34,11 @@
     "Microsoft.WindowsTerminal",
     "Oracle.VirtualBox",
     "ResponsivelyApp.ResponsivelyApp",
+    "Rufus.Rufus",
     "Schniz.fnm",
-    "Unity.UnityHub"
+    "Unity.UnityHub",
+    "Ventoy.Ventoy",
+    "WiresharkFoundation.Wireshark"
   ],
   "browserPrograms": [
     "Brave.Brave",
@@ -57,7 +62,8 @@
   "consolePrograms": [
     "JanDeDobbeleer.OhMyPosh",
     "Microsoft.PowerShell",
+    "posh-git",
     "Terminal-Icons",
-    "posh-git"
+    "Warp.Warp"
   ]
 }

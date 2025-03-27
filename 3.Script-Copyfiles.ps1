@@ -20,11 +20,12 @@ param(
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
-$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-$Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
+# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
+# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
+# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
+
 function Write-Message {
     Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
 }

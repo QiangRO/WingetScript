@@ -22,11 +22,12 @@ param(
 )
 #Rutas
 $scriptWingetPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-$Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
+# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
+# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
+# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
+
 function Write-Message {
     Write-Host "Ejecutando el segundo script" -ForegroundColor Cyan
 }
@@ -93,11 +94,11 @@ function TestExecute-Functions {
 }
 
 function Start-ThirdScript {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames ''}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third'}"
 }
 
 function Main {
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Write-Message'}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-ThirdScript'}"
 }
 
 if ($FunctionNames) {

@@ -17,9 +17,9 @@ param (
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
-$First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-$Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-$Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
+# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
+# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
+# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 Write-Host "Ejecutando el primer script" -ForegroundColor Cyan
 function Write-Message {
@@ -49,7 +49,7 @@ function Initial-Function{
 }
 
 function Start-SecondScript{
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames ''}"
+    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second'}"
 }
 
 #'Initial-Function',
