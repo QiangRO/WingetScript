@@ -67,7 +67,7 @@ function Start-CopyJSONPrograms {
     Write-Host "El archivo que contiene los ID'S de Programas fue copiado en: $profileDir" -ForegroundColor Green
 }
 
-function Create-ProfilePowershell {
+function Start-PSProfile {
     $profilePath = $PROFILE
     $profileDir = [System.IO.Path]::GetDirectoryName($profilePath) #Obtiene el directorio de una ruta
     if (-not(Test-Path -Path $profileDir)) {
@@ -87,12 +87,15 @@ function TestExecute-Functions {
 
 function Start-AllProfileFunctions {
     Write-Host "Ejecutando el segundo script`nEjecutando todas las funciones" -ForegroundColor Cyan
+    Write-Host "Creando el perfil de Powershell Core" -ForegroundColor Cyan
+    Start-PSProfile
     Start-ScriptInstall
     Start-ScriptDownload
     Start-ScriptDelete
     Start-ScriptUpdate
     Start-ScriptAdd
     Start-ScriptShow
+    Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
 }
 
 function Main {
