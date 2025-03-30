@@ -19,7 +19,10 @@ $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 
 function Write-Message {
-    Write-Host "Ejecutando el primer script, llamando al segundo script" -ForegroundColor Cyan
+    Write-Host "Se ejecuta la funcion llamada" -ForegroundColor Cyan
+}
+function Write-Message2 {
+    Write-Host "Se ejecuta la funcion dentro de main" -ForegroundColor Cyan
 }
 
 function TestExecute-Functions {
@@ -59,11 +62,11 @@ function Wait-ForPwsh {
 
 
 function Main {
-    Install-FirstPrograms
-    #Wait-ForPwsh
-    Write-Host "Llamando al segundo script" -ForegroundColor Cyan
+    Write-Message2
+    # Install-FirstPrograms
+    # Write-Host "Llamando al segundo script" -ForegroundColor Cyan
     #Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
-    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" -Verb RunAs
+    # Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" -Verb RunAs
 }
   
 if ($FunctionNames) {
