@@ -42,11 +42,11 @@ function Install-FirstPrograms{
     Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
     winget install -e --id Microsoft.PowerShell
 
-    #Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
-    #winget settings
+    Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
+    winget settings
 
-    #Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
-    #winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+    Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
+    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 }
 
 function Wait-ForPwsh {
@@ -60,10 +60,10 @@ function Wait-ForPwsh {
 
 function Main {
     Install-FirstPrograms
-    Wait-ForPwsh
+    #Wait-ForPwsh
     Write-Host "Llamando al segundo script" -ForegroundColor Cyan
     #Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
-    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }" -Verb RunAs
+    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" -Verb RunAs
 }
   
 if ($FunctionNames) {

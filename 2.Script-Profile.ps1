@@ -99,6 +99,7 @@ function Start-AllProfileFunctions {
 }
 
 function Main {
+    Start-AllProfileFunctions
     Write-Host "Llamando al tercer script" -ForegroundColor Cyan
     Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-AllCopyfilesFunctions' }"
 }
