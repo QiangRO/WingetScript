@@ -25,44 +25,44 @@ $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 function Start-ScriptInstall {
-    $wingetInstallScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\1.script-install.ps1"
+    $wingetInstallScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\1.script-install.ps1"
     Write-Host "Inicializando el script de Winget Install: $wingetInstallScriptPath" -ForegroundColor Cyan
     & $wingetInstallScriptPath
 }
 
 function Start-ScriptDownload {
-    $wingetDownloadScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\2.script-download.ps1"
+    $wingetDownloadScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\2.script-download.ps1"
     Write-Host "Inicializando el script de Winget Download: $wingetDownloadScriptPath" -ForegroundColor Cyan
     & $wingetDownloadScriptPath
 }
 
 function Start-ScriptDelete {
-    $wingetDeleteScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\3.script-delete.ps1"
+    $wingetDeleteScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\3.script-delete.ps1"
     Write-Host "Inicializando el script de Winget Delete: $wingetDeleteScriptPath" -ForegroundColor Cyan
     & $wingetDeleteScriptPath
 }
 
 function Start-ScriptUpdate {
-    $wingetUpdateScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\4.script-update.ps1"
+    $wingetUpdateScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\4.script-update.ps1"
     Write-Host "Inicializando el script de Winget Update: $wingetUpdateScriptPath" -ForegroundColor Cyan
     & $wingetUpdateScriptPath
 }
 
 function Start-ScriptAdd {
-    $wingetAddScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\5.script-add.ps1"
+    $wingetAddScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\5.script-add.ps1"
     Write-Host "Inicializando el script de Winget Agregar: $wingetAddScriptPath" -ForegroundColor Cyan
     & $wingetAddScriptPath
 }
 
 function Start-ScriptShow {
-    $wingetShowScriptPath = Join-Path -Path $scriptWingetPath -ChildPath "ScriptWinget\6.script-show.ps1"
+    $wingetShowScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\6.script-show.ps1"
     Write-Host "Inicializando el script de Winget Mostrar: $wingetShowScriptPath" -ForegroundColor Cyan
     & $wingetShowScriptPath
 }
 
 function Start-CopyJSONPrograms {
     Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
-    $scriptIDPath = Join-Path -Path $scriptWingetPath -ChildPath "ProgramasId.json"
+    $scriptIDPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
     Copy-Item -Path $scriptIDPath -Destination $profileDir -Recurse -Force
     Write-Host "El archivo que contiene los ID'S de Programas fue copiado en: $profileDir" -ForegroundColor Green
 }
