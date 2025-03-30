@@ -42,11 +42,11 @@ function Install-FirstPrograms{
     #Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
     #winget install -e --id Microsoft.PowerShell
 
-    Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
-    winget settings
+    #Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
+    #winget settings
 
-    Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
-    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+    #Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
+    #winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 }
 
 function Wait-ForPwsh {
