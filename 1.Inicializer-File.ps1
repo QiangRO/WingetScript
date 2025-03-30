@@ -32,23 +32,40 @@ function TestExecute-Functions {
     }
 }
 
-function Initial-Function{
+function Install-FirstPrograms{
+    Write-Host "Actualizando App Installer" -ForegroundColor Cyan
     winget upgrade -e --id Microsoft.AppInstaller
 
-    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
-
-    winget install -e --id Microsoft.PowerShell
-
+    Write-Host "Instalando Windows Terminal" -ForegroundColor Cyan
     winget install -e --id Microsoft.WindowsTerminal
 
+    Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
+    winget install -e --id Microsoft.PowerShell
+
+    Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
     winget settings
+
+    Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
+    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 }
+
+function Wait-ForPwsh {
+    Write-Host "Esperando a que PowerShell 7 esté disponible." -ForegroundColor Yellow
+    while (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) {
+        Start-Sleep -Seconds 2
+    }
+    Write-Host "PowerShell 7 está listo." -ForegroundColor Green
+}
+
 
 function Main {
+    Install-FirstPrograms
+    Wait-ForPwsh
     Write-Host "Llamando al segundo script" -ForegroundColor Cyan
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
+    #Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
+    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }" -Verb RunAs
 }
-
+  
 if ($FunctionNames) {
     TestExecute-Functions
 } else {
