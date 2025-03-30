@@ -60,8 +60,10 @@ function Wait-ForPwsh {
     Write-Host "PowerShell 7 está listo." -ForegroundColor Green
 }
 
+Write-Message
 
 function Main {
+    Write-Message
     Write-Message2
     # Install-FirstPrograms
     # Write-Host "Llamando al segundo script" -ForegroundColor Cyan
