@@ -39,8 +39,8 @@ function Install-FirstPrograms{
     Write-Host "Instalando Windows Terminal" -ForegroundColor Cyan
     winget install -e --id Microsoft.WindowsTerminal
 
-    Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
-    winget install -e --id Microsoft.PowerShell
+    #Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
+    #winget install -e --id Microsoft.PowerShell
 
     Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
     winget settings
