@@ -510,20 +510,23 @@ function Install-All {
     Install-SocialNetworks
     Install-ConsolePrograms
 }
+
 ##########################################################################################################
 #                                            UPDATE BLOCKING                                             #
 ##########################################################################################################
 
-winget pin add --id Microsoft.VisualStudio.2022.Community --blocking
-winget pin add --id Microsoft.VisualStudio.2022.BuildTools --blocking
-winget pin add --id Unity.Unity.2021 --blocking
-winget pin add --id Unity.Unity.2022 --blocking
-winget pin add --id Unity.Unity.2023 --blocking
-winget pin add --id BlenderFoundation.Blender --blocking
-winget pin add --id BlenderFoundation.Blender.LTS.3.3 --blocking
-winget pin add --id BlenderFoundation.Blender.LTS.3.6 --blocking
-winget pin add --id Ubisoft.Connect --blocking
-winget pin add --id Microsoft.Edge --blocking
+function Blocking-Programs{
+    winget pin add --id Microsoft.VisualStudio.2022.Community --blocking
+    winget pin add --id Microsoft.VisualStudio.2022.BuildTools --blocking
+    winget pin add --id Unity.Unity.2021 --blocking
+    winget pin add --id Unity.Unity.2022 --blocking
+    winget pin add --id Unity.Unity.2023 --blocking
+    winget pin add --id BlenderFoundation.Blender --blocking
+    winget pin add --id BlenderFoundation.Blender.LTS.3.3 --blocking
+    winget pin add --id BlenderFoundation.Blender.LTS.3.6 --blocking
+    winget pin add --id Ubisoft.Connect --blocking
+    winget pin add --id Microsoft.Edge --blocking
+}
 '@
 
 $profilePath = $PROFILE
