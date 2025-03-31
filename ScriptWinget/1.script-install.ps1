@@ -346,10 +346,6 @@ function Install-Programs {
                 }
 
             }
-            "DominikReichl.KeePass" {
-                winget install -e --id $programa --location "D:\Programas\KeePass Password Safe 2"
-                # Start-CopyKeepass
-            }
             default {
                 winget install -e --id $programa
             }
