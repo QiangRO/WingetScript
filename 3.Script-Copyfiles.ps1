@@ -1,15 +1,18 @@
 ##########################################################################################################
 #                                    ADMINISTRADOR PERMISSIONS REQUIRED                                  #
+#                                           ORCHESTRATOR SCRIPT                                          #
+##########################################################################################################
 #                                                                                                        #
-#  File that will initialize the scripts and create new powershell instances.                            #
+#  This script serves as a primary orchestrator within the WingetScript automation system. Its main      #
+# purpose is to coordinate the sequential and modular execution of child scripts for installation,       #
+# configuration, and file operations, ensuring a ready-to-use development environment.                   #
 #                                                                                                        #
 #     * Start-InstallFonts                                                                               #
-#     * Start-CopyKeepass                                                                                #
 #     * Start-CopyOhMyPosh                                                                               #
 #     * Start-CopyTerminalSettings                                                                       #
 #     * Start-CopyWingetSettings                                                                         #
 #     * TestExecute-Functions                                                                            #
-#     * Start-ThirdScript                                                                                #
+#     * Copyfiles-Function                                                                               #
 #     * Main.                                                                                            #
 #                                                                                                        #
 ##########################################################################################################
@@ -27,11 +30,11 @@ function Start-InstallFonts {
     & $fontScriptPath
 }
 
-function Start-CopyKeepass {
-    $keepassScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
-    Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
-    & $keepassScriptPath
-}
+# function Start-CopyKeepass {
+#     $keepassScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
+#     Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
+#     & $keepassScriptPath
+# }
 
 function Start-CopyOhMyPosh {
     $ohMyPoshScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\OhMyPosh\copy-theme-settings.ps1"

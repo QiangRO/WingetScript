@@ -1,3 +1,14 @@
+##########################################################################################################
+#                                    ADMINISTRADOR PERMISSIONS REQUIRED                                  #
+#                                           ORCHESTRATOR SCRIPT                                          #
+##########################################################################################################
+#                                                                                                        #
+#  This script serves as a primary orchestrator within the WingetScript automation system. Its main      #
+# purpose is to coordinate the sequential and modular execution of child scripts for installation,       #
+# configuration, and file operations, ensuring a ready-to-use development environment.                   #
+#                                                                                                        #
+##########################################################################################################
+
 #PRUEBAS
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 

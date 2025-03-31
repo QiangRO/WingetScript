@@ -1,8 +1,14 @@
 ##########################################################################################################
 #                                    ADMINISTRADOR PERMISSIONS REQUIRED                                  #
+#                                           ORCHESTRATOR SCRIPT                                          #
+##########################################################################################################
 #                                                                                                        #
-#  File that will initialize the scripts and create new powershell instances.                            #
+#  This script serves as a primary orchestrator within the WingetScript automation system. Its main      #
+# purpose is to coordinate the sequential and modular execution of child scripts for installation,       #
+# configuration, and file operations, ensuring a ready-to-use development environment.                   #
 #                                                                                                        #
+#     * Start-ThirdScript                                                                                #
+#     * Start-ScriptInstall                                                                              #
 #     * Start-ScriptInstall                                                                              #
 #     * Start-ScriptDownload                                                                             #
 #     * Start-ScriptDelete                                                                               #
@@ -10,9 +16,9 @@
 #     * Start-ScriptAdd                                                                                  #
 #     * Start-ScriptShow                                                                                 #
 #     * Start-CopyJSONPrograms                                                                           #
-#     * Create-ProfilePowershell                                                                         #
+#     * Start-PSProfile                                                                                  #
 #     * TestExecute-Functions                                                                            #
-#     * Start-ThirdScript                                                                                #
+#     * Profile-Function                                                                                 #
 #     * Main.                                                                                            #
 #                                                                                                        #
 ##########################################################################################################
