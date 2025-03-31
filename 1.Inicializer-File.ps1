@@ -18,11 +18,8 @@ param (
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 
-function Write-Message {
-    Write-Host "Se ejecuta la funcion llamada" -ForegroundColor Cyan
-}
-function Write-Message2 {
-    Write-Host "Se ejecuta la funcion dentro de main" -ForegroundColor Cyan
+function Start-SecondScript{
+    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }" -Verb RunAs
 }
 
 function TestExecute-Functions {
@@ -35,7 +32,9 @@ function TestExecute-Functions {
     }
 }
 
-function Install-FirstPrograms{
+function Inicializer-Function{
+    Write-Host "Ejecutando primer script"
+    Write-Host "Ejecutando la funcion de instalacion" -ForegroundColor Cyan
     Write-Host "Actualizando App Installer" -ForegroundColor Cyan
     winget upgrade -e --id Microsoft.AppInstaller
 
@@ -50,25 +49,15 @@ function Install-FirstPrograms{
 
     Write-Host "Instalando OhMyPosh 7" -ForegroundColor Cyan
     winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
-}
 
-function Wait-ForPwsh {
-    Write-Host "Esperando a que PowerShell 7 esté disponible." -ForegroundColor Yellow
-    while (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) {
-        Start-Sleep -Seconds 2
-    }
-    Write-Host "PowerShell 7 está listo." -ForegroundColor Green
+    Write-Host "Llamando al segundo script"
+    Start-SecondScript
 }
-
-Write-Message
 
 function Main {
-    Write-Message
-    Write-Message2
     # Install-FirstPrograms
     # Write-Host "Llamando al segundo script" -ForegroundColor Cyan
-    #Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
-    # Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" -Verb RunAs
+    # Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Second' -FunctionNames 'Start-AllProfileFunctions' }"
 }
   
 if ($FunctionNames) {

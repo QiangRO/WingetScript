@@ -17,16 +17,9 @@
 param(
     [string[]]$FunctionNames
 )
+
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-
-# $First = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
-# $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-# $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
-
-function Write-Message {
-    Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
-}
 
 function Start-InstallFonts {
     $fontScriptPath = Join-Path -Path $scriptPath -ChildPath "Fonts\install-fonts.ps1"
@@ -67,17 +60,21 @@ function TestExecute-Functions {
         }
     }
 }
-function Start-AllCopyfilesFunctions {
+
+function Copyfiles-Function {
+    Write-Host "Ejecutando el tercer script" -ForegroundColor Cyan
     Write-Host "Inicializando todos los scripts de copiado de archivos" -ForegroundColor DarkBlue
     Start-InstallFonts
     Start-CopyOhMyPosh
     Start-CopyTerminalSettings
     Start-CopyWingetSettings
+    Write-Host "Ejecucion de scripts finalizada" -ForegroundColor Green
 }
+
 function Main {
-    Write-Host "Ejecucion de scripts finalizada" -ForegroundColor Cyan
-    # Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Write-Message'}"
+    
 }
+
 if ($FunctionNames) {
     TestExecute-Functions
 }else {

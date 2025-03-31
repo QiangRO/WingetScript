@@ -24,6 +24,10 @@ param(
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
+function Start-ThirdScript{
+    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function' }"
+}
+
 function Start-ScriptInstall {
     $wingetInstallScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\1.script-install.ps1"
     Write-Host "Inicializando el script de Winget Install: $wingetInstallScriptPath" -ForegroundColor Cyan
@@ -85,23 +89,25 @@ function TestExecute-Functions {
     }
 }
 
-function Start-AllProfileFunctions {
-    Write-Host "Ejecutando el segundo script`nEjecutando todas las funciones" -ForegroundColor Cyan
-    Write-Host "Creando el perfil de Powershell Core" -ForegroundColor Cyan
+function Profile-Function {
+    Write-Host "Ejecutando segundo script"
+    Write-Host "Creando el perfil de Powershell 7" -ForegroundColor Cyan
     Start-PSProfile
+    Write-Host "Escribiendo funciones en el perfil Powershell 7"
     Start-ScriptInstall
     Start-ScriptDownload
     Start-ScriptDelete
     Start-ScriptUpdate
     Start-ScriptAdd
     Start-ScriptShow
+    Start-CopyJSONPrograms
     Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
+    Write-Host "Llamando al tercer script"
+    Start-ThirdScript
 }
 
 function Main {
-    Start-AllProfileFunctions
-    Write-Host "Llamando al tercer script" -ForegroundColor Cyan
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command", "& { . '$Third' -FunctionNames 'Start-AllCopyfilesFunctions' }"
+
 }
 
 if ($FunctionNames) {
