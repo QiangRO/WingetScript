@@ -27,6 +27,7 @@ function Show-InstallHelp {
     Write-Host "`t5. Install-Games." -ForegroundColor DarkMagenta
     Write-Host "`t6. Install-SocialNetworks." -ForegroundColor DarkMagenta
     Write-Host "`t7. Install-ConsolePrograms." -ForegroundColor DarkMagenta
+    Write-Host "`t7. Blocking-Programs ." -ForegroundColor DarkMagenta
     Write-Host "`tShow-InstallHelp.(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
     
@@ -59,7 +60,11 @@ function Show-InstallHelp {
             Write-Host "Ejecutando funcion 'Install-ConsolePrograms'." -ForegroundColor DarkBlue
             Install-ConsolePrograms
         }
-            
+        "8" {
+            Write-Host "Ejecutando funcion 'Blocking-Programs '." -ForegroundColor DarkBlue
+            Blocking-Programs 
+        }
+           
         default {
             if ($promptContent -eq "") {
                 Write-Host "Usted debe ingresar una opción" -ForegroundColor Yellow
