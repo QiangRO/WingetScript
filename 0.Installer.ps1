@@ -19,7 +19,7 @@
 #Ejecuta n cantidad de funciones
 # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" 
 
-Write-Host "Descargando el repositorio WingetScript..." -ForegroundColor Cyan
+Write-Host "Descargando el repositorio WingetScript." -ForegroundColor Cyan
 
 $tempZip = "$env:TEMP\WingetScript.zip"
 $tempFolder = "$env:TEMP\WingetScript-main"
@@ -30,6 +30,6 @@ Expand-Archive -Path $tempZip -DestinationPath $env:TEMP -Force
 
 Set-Location -Path $tempFolder
 
-$scriptToRun = Join-Path -Path $tempFolder -ChildPath "1.Inicializer-File.ps1"
-Write-Host "Ejecutando el orquestador 1.Inicializer-File.ps1 como administrador." -ForegroundColor Cyan
-Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$scriptToRun' -FunctionNames 'Inicializer-Function'}"
+# $scriptToRun = Join-Path -Path $tempFolder -ChildPath "1.Inicializer-File.ps1"
+# Write-Host "Ejecutando el orquestador 1.Inicializer-File.ps1 como administrador." -ForegroundColor Cyan
+# Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$scriptToRun' -FunctionNames 'Inicializer-Function'}"
