@@ -344,7 +344,6 @@ function Install-Programs {
                 else {
                     Write-Host "$programa no se puede instalar con permisos elevados. Saltando instalacion." -ForegroundColor Yellow
                 }
-
             }
             default {
                 winget install -e --id $programa
