@@ -34,6 +34,33 @@ function Start-ThirdScript{
     Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function' }"
 }
 
+function Start-CopyJSONPrograms {
+    Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
+    $scriptIDPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
+    Copy-Item -Path $scriptIDPath -Destination $profileDir -Recurse -Force
+    Write-Host "El archivo que contiene los ID'S de Programas fue copiado en: $profileDir" -ForegroundColor Green
+}
+
+Add-OhmyposhlineToProfile{
+    $ohmyposhInit = "oh-my-posh init pwsh --config 'C:\Users\aroch\AppData\Local\Programs\oh-my-posh\themes\my-theme.omp.json' | Invoke-Expression"
+    $profilePath = $PROFILE
+    $profileContent = Get-Content -Path $profilePath
+
+    $lineExists = $false
+    foreach ($line in $profileContent) {
+        if ($line.Trim() -eq $ohmyposhInit) {
+            $lineExists = $true
+            break
+        }
+    }
+    if (-not $lineExists) {
+        Add-Content -Path $profilePath -Value "`r`n$ohmyposhInit`r`n"
+        Write-Host "Inicialización de $programa añadida al perfil de PowerShell." -ForegroundColor Green
+    }else {
+        Write-Host "Inicialización de $programa ya existe en el perfil de PowerShell." -ForegroundColor Green
+    }
+}
+
 function Start-ScriptInstall {
     $wingetInstallScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\1.script-install.ps1"
     Write-Host "Inicializando el script de Winget Install: $wingetInstallScriptPath" -ForegroundColor Cyan
@@ -70,12 +97,7 @@ function Start-ScriptShow {
     & $wingetShowScriptPath
 }
 
-function Start-CopyJSONPrograms {
-    Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
-    $scriptIDPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
-    Copy-Item -Path $scriptIDPath -Destination $profileDir -Recurse -Force
-    Write-Host "El archivo que contiene los ID'S de Programas fue copiado en: $profileDir" -ForegroundColor Green
-}
+
 
 function Start-PSProfile {
     $profilePath = $PROFILE
@@ -99,6 +121,8 @@ function Profile-Function {
     Write-Host "Ejecutando segundo script"
     Write-Host "Creando el perfil de Powershell 7" -ForegroundColor Cyan
     Start-PSProfile
+    Write-Host "Agregando OhMyPosh al perfil de Powershell 7" -ForegroundColor Cyan
+    Add-OhmyposhlineToProfile
     Write-Host "Escribiendo funciones en el perfil Powershell 7"
     Start-ScriptInstall
     Start-ScriptDownload
