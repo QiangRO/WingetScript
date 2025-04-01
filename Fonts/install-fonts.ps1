@@ -6,7 +6,7 @@ $fontDirectories = @(
 )
 
 # Asegurar que la carpeta de destino exista
-$fontsFolderPath = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+$fontsFolderPath = "$env:WINDIR\Fonts"
 if (-Not (Test-Path -Path $fontsFolderPath)) {
     New-Item -Path $fontsFolderPath -ItemType Directory -Force
 }
