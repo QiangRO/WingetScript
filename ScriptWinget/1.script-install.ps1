@@ -485,6 +485,11 @@ function Install-ConsolePrograms {
                 Add-Initialization-Line -programID $programa
             }
             "pyenv"{
+                
+                Install-Module Microsoft.PowerShell.Archive
+
+                Get-Module -ListAvailable Microsoft.PowerShell.Archive
+            
                 Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
             }
             default {
