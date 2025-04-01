@@ -35,13 +35,17 @@ function Start-ThirdScript{
 }
 
 function Start-CopyJSONPrograms {
+    $profilePath = $PROFILE
+    $profileDir = [System.IO.Path]::GetDirectoryName($profilePath)
     Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
     $scriptIDPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
+    Write-Host "profileDir $profileDir" -ForegroundColor Yellow
+    Write-Host "scriptIDPath $scriptIDPath" -ForegroundColor Yellow
     Copy-Item -Path $scriptIDPath -Destination $profileDir -Recurse -Force
     Write-Host "El archivo que contiene los ID'S de Programas fue copiado en: $profileDir" -ForegroundColor Green
 }
 
-Add-OhmyposhlineToProfile{
+Function Add-OhmyposhlineToProfile{
     $ohmyposhInit = "oh-my-posh init pwsh --config 'C:\Users\aroch\AppData\Local\Programs\oh-my-posh\themes\my-theme.omp.json' | Invoke-Expression"
     $profilePath = $PROFILE
     $profileContent = Get-Content -Path $profilePath
@@ -97,8 +101,6 @@ function Start-ScriptShow {
     & $wingetShowScriptPath
 }
 
-
-
 function Start-PSProfile {
     $profilePath = $PROFILE
     $profileDir = [System.IO.Path]::GetDirectoryName($profilePath) #Obtiene el directorio de una ruta
@@ -119,21 +121,21 @@ function TestExecute-Functions {
 
 function Profile-Function {
     Write-Host "Ejecutando segundo script"
-    Write-Host "Creando el perfil de Powershell 7" -ForegroundColor Cyan
-    Start-PSProfile
-    Write-Host "Agregando OhMyPosh al perfil de Powershell 7" -ForegroundColor Cyan
-    Add-OhmyposhlineToProfile
-    Write-Host "Escribiendo funciones en el perfil Powershell 7"
-    Start-ScriptInstall
-    Start-ScriptDownload
-    Start-ScriptDelete
-    Start-ScriptUpdate
-    Start-ScriptAdd
-    Start-ScriptShow
+    # Write-Host "Creando el perfil de Powershell 7" -ForegroundColor Cyan
+    # Start-PSProfile
+    # Write-Host "Agregando OhMyPosh al perfil de Powershell 7" -ForegroundColor Cyan
+    # Add-OhmyposhlineToProfile
+    # Write-Host "Escribiendo funciones en el perfil Powershell 7"
+    # Start-ScriptInstall
+    # Start-ScriptDownload
+    # Start-ScriptDelete
+    # Start-ScriptUpdate
+    # Start-ScriptAdd
+    # Start-ScriptShow
     Start-CopyJSONPrograms
-    Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
-    Write-Host "Llamando al tercer script"
-    Start-ThirdScript
+    # Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
+    # Write-Host "Llamando al tercer script"
+    # Start-ThirdScript
 }
 
 function Main {
