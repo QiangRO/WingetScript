@@ -484,9 +484,8 @@ function Install-ConsolePrograms {
                 Install-Module -Name $programa -Repository PSGallery
                 Add-Initialization-Line -programID $programa
             }
-            "posh-git"{
-                Install-Module $programa -Scope CurrentUser -Force
-                Add-PoshGitToProfile
+            "pyenv"{
+                Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
             }
             default {
                 winget install -e --id $programa

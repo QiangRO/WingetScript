@@ -38,7 +38,8 @@
     "Schniz.fnm",
     "Unity.UnityHub",
     "Ventoy.Ventoy",
-    "WiresharkFoundation.Wireshark"
+    "WiresharkFoundation.Wireshark",
+    "Warp.Warp"
   ],
   "browserPrograms": [
     "Brave.Brave",
@@ -62,8 +63,7 @@
   "consolePrograms": [
     "JanDeDobbeleer.OhMyPosh",
     "Microsoft.PowerShell",
-    "posh-git",
     "Terminal-Icons",
-    "Warp.Warp"
+    "pyenv"
   ]
 }
