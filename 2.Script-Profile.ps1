@@ -37,8 +37,6 @@ function Start-ThirdScript{
 }
 
 function Start-CopyJSONPrograms {
-    
-    
     Write-Host "Copiando el script con los ID'S de programas..." -ForegroundColor DarkBlue
     $scriptIDPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
     Write-Host "profileDir $profileDir" -ForegroundColor Yellow
