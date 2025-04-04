@@ -21,7 +21,7 @@ function Show-InstallHelp {
     )
     Write-Host "Funciones de instalación disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. Install-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Install-Programs." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Install-GeneralPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t3. Install-DevelopmentPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t4. Install-Browsers." -ForegroundColor DarkMagenta
     Write-Host "`t5. Install-Games." -ForegroundColor DarkMagenta
@@ -37,8 +37,8 @@ function Show-InstallHelp {
             Install-All
         }
         "2" {
-            Write-Host "Ejecutando funcion 'Install-Programs'." -ForegroundColor DarkBlue
-            Install-Programs
+            Write-Host "Ejecutando funcion 'Install-GeneralPrograms'." -ForegroundColor DarkBlue
+            Install-GeneralPrograms
         }
         "3" {
             Write-Host "Ejecutando funcion 'Install-DevelopmentPrograms'." -ForegroundColor DarkBlue
@@ -64,7 +64,6 @@ function Show-InstallHelp {
             Write-Host "Ejecutando funcion 'Blocking-Programs '." -ForegroundColor DarkBlue
             Blocking-Programs 
         }
-           
         default {
             if ($promptContent -eq "") {
                 Write-Host "Usted debe ingresar una opción" -ForegroundColor Yellow
@@ -82,7 +81,7 @@ function Show-SaveHelp {
     )
     Write-Host "Funciones de descarga disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. Save-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Save-Programs." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Save-GeneralPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t3. Save-DevelopmentPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t4. Save-Browsers." -ForegroundColor DarkMagenta
     Write-Host "`t5. Save-Games." -ForegroundColor DarkMagenta
@@ -96,8 +95,8 @@ function Show-SaveHelp {
             Save-All
         }
         "2" {
-            Write-Host "Ejecutando funcion 'Save-Programs'." -ForegroundColor DarkBlue
-            Save-Programs
+            Write-Host "Ejecutando funcion 'Save-GeneralPrograms'." -ForegroundColor DarkBlue
+            Save-GeneralPrograms
         }
         "3" {
             Write-Host "Ejecutando funcion 'Save-DevelopmentPrograms'." -ForegroundColor DarkBlue
@@ -136,7 +135,7 @@ function Show-UninstallHelp {
     )
     Write-Host "Funciones de eliminación disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. Uninstall-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Uninstall-Programs." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Uninstall-GeneralPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t3. Uninstall-DevelopmentPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t4. Uninstall-Browsers." -ForegroundColor DarkMagenta
     Write-Host "`t5. Uninstall-Games." -ForegroundColor DarkMagenta
@@ -150,8 +149,8 @@ function Show-UninstallHelp {
             Uninstall-All
         }
         "2" {
-            Write-Host "Ejecutando funcion 'Uninstall-Programs'." -ForegroundColor DarkBlue
-            Uninstall-Programs
+            Write-Host "Ejecutando funcion 'Uninstall-GeneralPrograms'." -ForegroundColor DarkBlue
+            Uninstall-GeneralPrograms
         }
         "3" {
             Write-Host "Ejecutando funcion 'Uninstall-DevelopmentPrograms'." -ForegroundColor DarkBlue
@@ -190,7 +189,7 @@ function Show-UpdateHelp {
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. Update-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Update-Programs." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Update-GeneralPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t3. Update-DevelopmentPrograms." -ForegroundColor DarkMagenta
     Write-Host "`t4. Update-Browsers." -ForegroundColor DarkMagenta
     Write-Host "`t5. Update-Games." -ForegroundColor DarkMagenta
@@ -204,8 +203,8 @@ function Show-UpdateHelp {
             Update-All
         }
         "2" {
-            Write-Host "Ejecutando funcion 'Update-Programs'." -ForegroundColor DarkBlue
-            Update-Programs
+            Write-Host "Ejecutando funcion 'Update-GeneralPrograms'." -ForegroundColor DarkBlue
+            Update-GeneralPrograms
         }
         "3" {
             Write-Host "Ejecutando funcion 'Update-DevelopmentPrograms'." -ForegroundColor DarkBlue

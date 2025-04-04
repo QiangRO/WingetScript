@@ -4,7 +4,7 @@
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
 #     * Uninstall-All.                                                                                   #
-#     * Uninstall-Programs.                                                                              #
+#     * Uninstall-GeneralPrograms.                                                                       #
 #     * Uninstall-DevelopmentPrograms                                                                    #
 #     * Uninstall-Browsers.                                                                              #
 #     * Uninstall-Games.                                                                                 #
@@ -17,10 +17,10 @@ $functionContentDelete = @'
 #                                             DELETE SCRIPTS                                             #
 ##########################################################################################################
 
-function Uninstall-Programs {
-    $programs = Get-ProgramJson -category "programs"
+function Uninstall-GeneralPrograms {
+    $generalPrograms = Get-ProgramJson -category "generalPrograms"
     Write-Host "Desinstalando Programas" -ForegroundColor Cyan
-    foreach ($programa in $programs) {
+    foreach ($programa in $generalPrograms) {
         Write-Host "Desinstalando $programa." -ForegroundColor DarkBlue
         winget uninstall $programs
     }
@@ -83,7 +83,7 @@ function Uninstall-ConsolePrograms {
 
 function Uninstall-All {
     Write-Host "Desinstalando todos los programas de la lista." -ForegroundColor DarkBlue
-    Uninstall-Programs
+    Uninstall-GeneralPrograms
     Uninstall-DevelopmentPrograms
     Uninstall-Browsers
     Uninstall-Games

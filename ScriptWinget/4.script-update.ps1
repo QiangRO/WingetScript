@@ -4,7 +4,7 @@
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
 #     * Update-All.                                                                                      #
-#     * Update-Programs.                                                                                 #
+#     * Update-GeneralPrograms.                                                                          #
 #     * Update-DevelopmentPrograms                                                                       #
 #     * Update-Browsers.                                                                                 #
 #     * Update-Games.                                                                                    #
@@ -18,10 +18,10 @@ $functionContentUpdate =
 #                                             UPDATE SCRIPTS                                             #
 ##########################################################################################################
 
-function Update-Programs {
-    Write-Host "Actualizando Programas" -ForegroundColor Cyan
-    $programs = Get-ProgramJson -category "programs"
-    foreach ($programa in $programs) {
+function Update-GeneralPrograms {
+    Write-Host "Actualizando General Programas" -ForegroundColor Cyan
+    $generalPrograms = Get-ProgramJson -category "generalPrograms"
+    foreach ($programa in $generalPrograms) {
         Write-Host "Actualizando $programa." -ForegroundColor DarkBlue
         winget upgrade -e --id $programa
     }
@@ -84,7 +84,7 @@ function Update-ConsolePrograms {
 
 function Update-All {
     Write-Host "Actualizando todos los programas instalados." -ForegroundColor Cyan
-    Update-Programs
+    Update-GeneralPrograms
     Update-DevelopmentPrograms
     Update-Browsers
     Update-Games
