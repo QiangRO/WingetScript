@@ -4,7 +4,7 @@
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
 #     * Save-All.                                                                                        #
-#     * Save-Programs.                                                                                   #
+#     * Save-GeneralPrograms.                                                                            #
 #     * Save-DevelopmentPrograms                                                                         #
 #     * Save-Browsers.                                                                                   #
 #     * Save-Games.                                                                                      #
@@ -16,12 +16,12 @@ $functionContentDownload = @'
 ##########################################################################################################
 #                                            DOWNLOAD SCRIPTS                                            #
 ##########################################################################################################
-function Save-Programs {
-    Write-Host "Descargando Programs" -ForegroundColor Cyan
+function Save-GeneralPrograms {
+    Write-Host "Descargando General Programs" -ForegroundColor Cyan
 
-    $programs = Get-ProgramJson -category "programs"
+    $generalPrograms = Get-ProgramJson -category "generalPrograms"
 
-    foreach ($programa in $programs) {
+    foreach ($programa in $generalPrograms) {
         $pathProgram = "$downloadsPath\Programs\$programa"
         if (-not(Test-Path $pathProgram)) {
             Write-Host "Descargando $programa." -ForegroundColor DarkBlue
@@ -135,7 +135,7 @@ function Save-ConsolePrograms {
 
 function Save-All {
     Write-Host "Descargando todos los programas de la lista." -ForegroundColor Cyan
-    Save-Programs
+    Save-GeneralPrograms
     Save-DevelopmentPrograms
     Save-Browsers
     Save-Games
