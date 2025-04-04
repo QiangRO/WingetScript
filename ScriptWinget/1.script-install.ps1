@@ -7,7 +7,7 @@
 #     * Test-And-Install-Dependencies.                                                                   #
 #     * Add-Initialization-Line.                                                                         #
 #     * Install-All.                                                                                     #
-#     * Install-Programs.                                                                                #
+#     * Install-GeneralPrograms.                                                                         #
 #     * Install-DevelopmentPrograms                                                                      #
 #     * Install-Browsers.                                                                                #
 #     * Install-Games.                                                                                   #
@@ -46,7 +46,7 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-$functionContentInstall = @'
+$functionContentInstall = 
 
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
@@ -98,7 +98,7 @@ function Get-ProgramJson {
 # $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 
 #VARIABLES GLOBALES
-$downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
+#$downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
 
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 # $parentPath = Split-Path -Path $scriptPath -Parent
@@ -328,181 +328,175 @@ function Add-Initialization-Line {
 ##########################################################################################################
 #                                          INSTALLATION SCRIPTS                                          #
 ##########################################################################################################
-
-function Install-Programs {
-    Write-Host "Instalando Programs" -ForegroundColor Cyan
-
-    $programs = Get-ProgramJson -category "programs"
-
-    foreach ($programa in $programs) {
-        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
-        switch ($programa) {
-            "Spotify.Spotify" {
-                if (-not ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {
-                    winget install -e --id $programa
+function Install-CustomProgram {
+    param (
+        [string]$programID
+    )
+    if (-not $programID) {
+        Write-Host "Error: debes proporcionar un nombre de programa." -ForegroundColor Red
+        return
+    }
+    Write-Host "Instalando $programID." -ForegroundColor DarkBlue
+    switch ($programID) {
+        #DEVELOPMENTPROGRAMS
+        "Schniz.fnm" {
+            if (Test-And-Install-Dependencies -programName $programID) {
+                Write-Host "Procediendo con la instalación de $programID" -ForegroundColor DarkBlue
+                if (-not (winget install -e --id $programID)) {
+                    Write-Host "Error al instalar fnm." -ForegroundColor Red
                 }
-                else {
-                    Write-Host "$programa no se puede instalar con permisos elevados. Saltando instalacion." -ForegroundColor Yellow
-                }
+                Add-Initialization-Line -programID $programID
             }
-            default {
-                winget install -e --id $programa
+            else {
+                Write-Host "No se pudieron instalar todas las dependencias para fnm. Instalación abortada." -ForegroundColor Red
             }
         }
+        "Git.Git" {
+            winget install $programID --override '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /o:COMPONENTS=icons,ext\reg\shellhere,gitlfs,assoc,assoc_sh /o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main /o:PathOption=Cmd /o:SSHOption=OpenSSH /o:CurlOption=OpenSSL /o:CRLFOption=CRLFAlways /o:BashTerminalOption=MinTTY /o:GitPullBehaviorOption=Merge /o:UseCredentialManager=Enabled /o:PerformanceTweaksFSCache=Enabled /o:EnablePseudoConsoleSupport=Disabled'
+        }
+        "Microsoft.SQLServer.2022.Developer" {
+            winget install -e --id $programID --override "/ENU /IACCEPTSQLSERVERLICENSETERMS /QUIET /HIDEPROGRESSBAR /VERBOSE /ACTION=Install /LANGUAGE=en-US"
+        }
+        "Microsoft.SQLServerManagementStudio" {
+            winget install -e --id $programID --override "/INSTALL /QUIET /NORESTART"
+        }
+        "Oracle.VirtualBox" {
+            if (Test-And-Install-Dependencies -programName $programID) {
+                Write-Host "Procediendo con la instalación de VirtualBox..." -ForegroundColor DarkBlue
+                if (-not (winget install -e --id $programID --override "--silent --ignore-reboot")) {
+                    Write-Host "Error al instalar VirtualBox." -ForegroundColor Red
+                }
+            }
+            else {
+                Write-Host "No se pudieron instalar todas las dependencias para VirtualBox. Instalación abortada." -ForegroundColor Red
+            }
+        }
+        "Microsoft.VisualStudioCode" {
+            if (Test-And-Install-Dependencies -programName "Microsoft.VisualStudioCode") {
+                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
+            }
+        }
+        "ApacheFriends.Xampp.8.2" {
+            $xamppPhpPath = "C:\xampp\php"
+            winget install -e --id $programID
+            #Añadiendo php a las variables de entorno del sistema
+            if (Test-Path -Path $xamppPhpPath) {
+                $currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+                if (-not $currentPath.Contains($xamppPhpPath)) {
+                    $newPath = $currentPath + ";" + $xamppPhpPath
+                    [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::Machine)
+                    Write-Host "El directorio '$xamppPhpPath' se ha añadido al PATH del sistema correctamente." -ForegroundColor Green
+                }
+                else {
+                    Write-Host "El directorio '$xamppPhpPath' ya está en el PATH del sistema." -ForegroundColor Green
+                }
+            }
+            else {
+                Write-Host "El directorio '$xamppPhpPath' no existe. Asegúrate de que XAMPP esté instalado correctamente." -ForegroundColor Red
+            }
+        }
+        #GENERALPROGRAMS
+        "Spotify.Spotify" {
+            if (-not ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {
+                winget install -e --id $programID
+            }
+            else {
+                Write-Host "$programID no se puede instalar con permisos elevados. Saltando instalacion." -ForegroundColor Yellow
+            }
+        }
+        #CONSOLEPROGRAMS
+        "JanDeDobbeleer.OhMyPosh" {
+            Write-Host "Procediendo con la instalacion de $programID" -ForegroundColor DarkBlue
+                if (-not (winget install -e --id $programID -s winget)) {
+                    Write-Host "Error la instalar $programID" -ForegroundColor Red
+                }
+                #Get-PoshThemes
+                Add-Initialization-Line -programID $programID
+        }
+        "Terminal-Icons" {
+            Install-Module -Name $programID -Repository PSGallery
+            Add-Initialization-Line -programID $programID
+        }
+        "pyenv"{
+            Install-Module Microsoft.PowerShell.Archive
+            Get-Module -ListAvailable Microsoft.PowerShell.Archive
+            Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
+        }
+        #GAMINGPROGRAMS
+        "Blizzard.BattleNet" {
+            winget install -e --id $programID --custom '--lang=enUS --installpath="C:\Program Files (x86)\Battle.net"'
+        }
+        
+        default {
+            winget install -e --id $programID
+        }
+    }
+}
+
+function Install-GeneralPrograms {
+    Write-Host "Instalando General Programs" -ForegroundColor Cyan
+    $generalPrograms = Get-ProgramJson -category "generalPrograms"
+
+    foreach ($programa in $generalPrograms) {
+        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
+        Install-CustomProgram -programID $programa
     }
 }
 
 function Install-DevelopmentPrograms {
     Write-Host "Instalando programas Development" -ForegroundColor Cyan
-
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
 
     foreach ($programa in $developmentPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        switch ($programa) {
-            "Schniz.fnm" {
-                if (Test-And-Install-Dependencies -programName $programa) {
-                    Write-Host "Procediendo con la instalación de $programa" -ForegroundColor DarkBlue
-                    if (-not (winget install -e --id $programa)) {
-                        Write-Host "Error al instalar fnm." -ForegroundColor Red
-                    }
-                    Add-Initialization-Line -programID $programa
-                }
-                else {
-                    Write-Host "No se pudieron instalar todas las dependencias para fnm. Instalación abortada." -ForegroundColor Red
-                }
-            }
-            "Git.Git" {
-                winget install $programa --override '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /o:COMPONENTS=icons,ext\reg\shellhere,gitlfs,assoc,assoc_sh /o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main /o:PathOption=Cmd /o:SSHOption=OpenSSH /o:CurlOption=OpenSSL /o:CRLFOption=CRLFAlways /o:BashTerminalOption=MinTTY /o:GitPullBehaviorOption=Merge /o:UseCredentialManager=Enabled /o:PerformanceTweaksFSCache=Enabled /o:EnablePseudoConsoleSupport=Disabled'
-            }
-            "Microsoft.SQLServer.2022.Developer" {
-                winget install -e --id $programa --override "/ENU /IACCEPTSQLSERVERLICENSETERMS /QUIET /HIDEPROGRESSBAR /VERBOSE /ACTION=Install /LANGUAGE=en-US"
-            }
-            "Microsoft.SQLServerManagementStudio" {
-                winget install -e --id $programa --override "/INSTALL /QUIET /NORESTART"
-            }
-            "Oracle.VirtualBox" {
-                if (Test-And-Install-Dependencies -programName $programa) {
-                    Write-Host "Procediendo con la instalación de VirtualBox..." -ForegroundColor DarkBlue
-                    if (-not (winget install -e --id $programa --override "--silent --ignore-reboot")) {
-                        Write-Host "Error al instalar VirtualBox." -ForegroundColor Red
-                    }
-                }
-                else {
-                    Write-Host "No se pudieron instalar todas las dependencias para VirtualBox. Instalación abortada." -ForegroundColor Red
-                }
-            }
-            "Microsoft.VisualStudioCode" {
-                if (Test-And-Install-Dependencies -programName "Microsoft.VisualStudioCode") {
-                    winget install $programa --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
-                }
-            }
-            "ApacheFriends.Xampp.8.2" {
-                $xamppPhpPath = "C:\xampp\php"
-                winget install -e --id $programa
-                #Añadiendo php a las variables de entorno del sistema
-                if (Test-Path -Path $xamppPhpPath) {
-                    $currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
-                    if (-not $currentPath.Contains($xamppPhpPath)) {
-                        $newPath = $currentPath + ";" + $xamppPhpPath
-                        [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::Machine)
-
-                        Write-Host "El directorio '$xamppPhpPath' se ha añadido al PATH del sistema correctamente." -ForegroundColor Green
-                    }
-                    else {
-                        Write-Host "El directorio '$xamppPhpPath' ya está en el PATH del sistema." -ForegroundColor Green
-                    }
-                }
-                else {
-                    Write-Host "El directorio '$xamppPhpPath' no existe. Asegúrate de que XAMPP esté instalado correctamente." -ForegroundColor Red
-                }
-            }
-            default {
-                winget install -e --id $programa
-            }
-        }
+        Install-CustomProgram -programID $programa 
     }
 }
 
 function Install-Browsers {
     Write-Host "Instalando programas Browser" -ForegroundColor Cyan
-
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
 
     foreach ($programa in $browserPrograms) {
-        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
-        winget install -e --id $programa
+        Write-Host "Instalando $programa." -ForegroundColor DarkBlue
+        Install-CustomProgram -programID $programa
     }
 }
 
 function Install-Games {
     Write-Host "Instalando programas Gaming" -ForegroundColor Cyan
-    
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
 
     $gamingPrograms = $global:ProgramData.gamingPrograms
     foreach ($programa in $gamingPrograms) {
         Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
-        switch ($programa) {
-            "Blizzard.BattleNet" {
-                winget install -e --id $programa --custom '--lang=enUS --installpath="C:\Program Files (x86)\Battle.net"'
-            }
-            Default {}
-        }
-        winget install -e --id $programa
+        Install-CustomProgram -programID $programa
     }
 }
 
 function Install-SocialNetworks {
     Write-Host "Instalando programas Social Network" -ForegroundColor Cyan
-
     $socialNetworkPrograms = Get-ProgramJson -category "socialNetworkPrograms"
 
     foreach ($programa in $socialNetworkPrograms) {
         Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
-        winget install -e --id $programa
+        Install-CustomProgram -programID $programa
     }
 }
 
 function Install-ConsolePrograms {
     Write-Host "Instalando programas Console" -ForegroundColor Cyan
-    
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
 
     foreach ($programa in $consolePrograms) {
         Write-Host "Instalando $programa" -ForegroundColor DarkBlue
-        switch ($programa) {
-            "JanDeDobbeleer.OhMyPosh" {
-                Write-Host "Procediendo con la instalacion de $programa" -ForegroundColor DarkBlue
-                if (-not (winget install -e --id $programa -s winget)) {
-                    Write-Host "Error la instalar $programa" -ForegroundColor Red
-                }
-                Get-PoshThemes
-                Add-Initialization-Line -programID $programa
-            }
-            "Terminal-Icons" {
-                Install-Module -Name $programa -Repository PSGallery
-                Add-Initialization-Line -programID $programa
-            }
-            "pyenv"{
-                
-                Install-Module Microsoft.PowerShell.Archive
-
-                Get-Module -ListAvailable Microsoft.PowerShell.Archive
-            
-                Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
-            }
-            default {
-                winget install -e --id $programa
-            }
-        }
-        
+        Install-CustomProgram -programID $programa
     }
 }
 
 function Install-All {
     Write-Host "Instalando todos los programas de la lista." -ForegroundColor DarkBlue
-    Install-Programs
+    Install-GeneralPrograms
     Install-DevelopmentPrograms
     Install-Browsers
     Install-Games
