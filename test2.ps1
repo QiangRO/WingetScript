@@ -16,12 +16,31 @@ function TestExecute-Functions {
         }
     }
 }
+
+function test-dependencies{
+    #return (Get-Command dotnet -ErrorAction SilentlyContinue) -ne $null
+
+    # if (-Not (winget list --id Microsoft.VisualStudioCode)) { #SI VERIFICA
+    #     Write-Host "Instalando" -ForegroundColor DarkBlue
+    # }
+    # else {
+    #     Write-Host "Ya está instalado." -ForegroundColor Green
+    # }
+
+    $DotNet8Installed = $dotnetSdks -match '^8\.\d+'
+    Write-Host "$DotNet8Installed" -ForegroundColor Green
+    
+    $DotNetPreviewInstalled = $dotnetSdks -match 'preview'
+    Write-Host "$DotNetPreviewInstalled" -ForegroundColor Green
+    # if (-not (winget install -e --id Rufus.Rufus)) {
+    #     Write-Host "Error al instalar." -ForegroundColor Red
+    #     return $false
+    # }
+    # Write-Host "Instalado correctamente" -ForegroundColor Green
+}
+
 function Write-Message {
-    $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-    $scriptToRun = Join-Path -Path $scriptPath -ChildPath "test2.ps1"
-    Write-Host "Ejecutando el orquestador 1.Inicializer-File.ps1 como administrador." -ForegroundColor Cyan
-    Write-Host "scriptPath $scriptPath" -ForegroundColor Cyan
-    Write-Host "scriptToRun $scriptToRun" -ForegroundColor Cyan
+
 }
 
 function Main{

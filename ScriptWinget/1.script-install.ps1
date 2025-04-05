@@ -46,7 +46,7 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-$functionContentInstall = @'
+$functionContentInstall =
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 # $scriptIdProgramPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.ps1"
@@ -112,71 +112,38 @@ function Get-ProgramJson {
 #                                           DEPENDENCY SCRIPTS                                           #
 ##########################################################################################################
 
+function Test-And-Install-DotNetEnvironment {
+    $hasDotNet = (Get-Command dotnet -ErrorAction SilentlyContinue) -ne $null
+    $dotnetSdks = @()
+    if ($hasDotNet) {
+        $dotnetSdks = dotnet --list-sdks
+    }
+    $DotNet8Installed = $dotnetSdks -match '^8\.\d+'
+    $DotNetPreviewInstalled = $dotnetSdks -match 'preview'
+    if (-not $DotNet8Installed) {
+        Write-Host "DotNet SDK 8.x no está instalado. Instalando..." -ForegroundColor Cyan
+        if (-not (winget install -e --id "Microsoft.DotNet.SDK.8")) {
+            Write-Host "Error al instalar DotNet SDK 8." -ForegroundColor Red
+            return $false
+        }
+    }
+    if (-not $DotNetPreviewInstalled) {
+        Write-Host "DotNet SDK Preview no está instalado. Instalando..." -ForegroundColor Cyan
+        if (-not (winget install -e --id "Microsoft.DotNet.SDK.Preview")) {
+            Write-Host "Error al instalar DotNet SDK Preview." -ForegroundColor Red
+            return $false
+        }
+    }
+    Write-Host "DotNet SDK 8 y Preview están correctamente instalados." -ForegroundColor Green
+    return $true
+}
+
 function Test-And-Install-Dependencies {
     param(
         [string]$programName
     )
     switch ($programName) {
         #TESTEAR VALIDACIONES
-        "Microsoft.DotNet.SDK.8" {
-            $DotNet8Bolean = $true
-            $DotNetPreviewBolean = $true
-            $dotnetSdks = dotnet --list-sdks
-            if ($dotnetSdks -notmatch "8\.") {
-                Write-Host "Microsoft DotNet SDK 8.x no está instalado. Procediendo con la instalación $programName." -ForegroundColor DarkBlue
-                if (-not (winget install -e --id $programName)) {
-                    Write-Host "Error al instalar $programName" -ForegroundColor Red
-                    $DotNet8Bolean = $false
-                }
-            }
-            else {
-                Write-Host "$programName ya está instalado." -ForegroundColor Green
-            }if ($dotnetSdks -notmatch "preview") {
-                Write-Host "No se encontró ninguna versión de DotNet SDK Preview. Procediendo con la instalación." -ForegroundColor DarkBlue
-                if (-not (winget install -e --id Microsoft.DotNet.SDK.Preview)) {
-                    Write-Host "Error al instalar DotNet SDK Preview" -ForegroundColor Red
-                    $DotNetPreviewBolean = $false
-                }
-            }
-            else {
-                Write-Host "Alguna versión de DotNet SDK Preview ya está instalada." -ForegroundColor Green
-            }
-
-            #Evaluacion de variables Bolean
-            if ($DotNet8Bolean -and $DotNetPreviewBolean) {
-                Write-Host "Ambos Dotnet estan correctamente instalados" -ForegroundColor Green
-                return $true
-            }
-            elseif (-not $DotNet8Bolean) {
-                Write-Host "La instalacion de DotNet SDK 8.x falló." -ForegroundColor Red
-                return $false
-            }
-            elseif (-not $DotNetPreviewBolean) {
-                Write-Host "La instalacion de DotNet SDK Preview falló." -ForegroundColor Red
-                return $false
-            }
-        }
-
-        "Microsoft.VisualStudioCode" {
-            if (-not (Test-And-Install-Dependencies -programName "Microsoft.DotNet.SDK.8")) {
-                Write-Host "Algo salió mal al instalar las dependencias para $programName." -ForegroundColor Red
-                return $false
-            }
-            else {
-                Write-Host "Todas las dependencias de $programName están instaladas." -ForegroundColor Green
-                if (-Not (winget list --id Microsoft.VisualStudioCode)) {
-                    Write-Host "Instalando $programName..." -ForegroundColor DarkBlue
-                    if (-not (winget install -e --id $programName)) {
-                        Write-Host "Error al instalar $programName." -ForegroundColor Red
-                        return $false
-                    }
-                }
-                else {
-                    Write-Host "$programName ya está instalado." -ForegroundColor Green
-                }
-                return $true
-            }
-        }
         "Microsoft.VisualStudio.2022.BuildTools" {
             $buildToolsPath = "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin"
             if (-Not (Test-Path $buildToolsPath)) {
@@ -371,8 +338,10 @@ function Install-CustomProgram {
             }
         }
         "Microsoft.VisualStudioCode" {
-            if (Test-And-Install-Dependencies -programName "Microsoft.VisualStudioCode") {
+            if (Test-And-Install-DotNetEnvironment) {
                 winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
+            }else{
+                Write-Host "Hubo un error al instalar Dotnet 8 o Dotnet Preview"
             }
         }
         "ApacheFriends.Xampp.8.2" {
