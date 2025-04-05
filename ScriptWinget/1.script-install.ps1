@@ -46,8 +46,7 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-$functionContentInstall = 
-
+$functionContentInstall = @'
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 # $scriptIdProgramPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.ps1"
@@ -58,7 +57,7 @@ $functionContentInstall =
 ##########################################################################################################
 #                                            UPLOAD DATA JSON                                            #
 ##########################################################################################################
-$scriptPath = Split-Path -Path $PROFILE
+$scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $jsonPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
 
 if (Test-Path -Path $jsonPath) {
@@ -410,7 +409,6 @@ function Install-CustomProgram {
                 if (-not (winget install -e --id $programID -s winget)) {
                     Write-Host "Error la instalar $programID" -ForegroundColor Red
                 }
-                #Get-PoshThemes
                 Add-Initialization-Line -programID $programID
         }
         "Terminal-Icons" {
@@ -426,7 +424,6 @@ function Install-CustomProgram {
         "Blizzard.BattleNet" {
             winget install -e --id $programID --custom '--lang=enUS --installpath="C:\Program Files (x86)\Battle.net"'
         }
-        
         default {
             winget install -e --id $programID
         }
@@ -434,17 +431,17 @@ function Install-CustomProgram {
 }
 
 function Install-GeneralPrograms {
-    Write-Host "Instalando General Programs" -ForegroundColor Cyan
+    Write-Host "Instalando General Programs." -ForegroundColor Cyan
     $generalPrograms = Get-ProgramJson -category "generalPrograms"
 
     foreach ($programa in $generalPrograms) {
-        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
+        Write-Host "Instalando $programa." -ForegroundColor DarkBlue
         Install-CustomProgram -programID $programa
     }
 }
 
 function Install-DevelopmentPrograms {
-    Write-Host "Instalando programas Development" -ForegroundColor Cyan
+    Write-Host "Instalando programas Development." -ForegroundColor Cyan
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
 
     foreach ($programa in $developmentPrograms) {
@@ -454,7 +451,7 @@ function Install-DevelopmentPrograms {
 }
 
 function Install-Browsers {
-    Write-Host "Instalando programas Browser" -ForegroundColor Cyan
+    Write-Host "Instalando programas Browser." -ForegroundColor Cyan
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
 
     foreach ($programa in $browserPrograms) {
@@ -464,32 +461,32 @@ function Install-Browsers {
 }
 
 function Install-Games {
-    Write-Host "Instalando programas Gaming" -ForegroundColor Cyan
+    Write-Host "Instalando programas Gaming." -ForegroundColor Cyan
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
 
     $gamingPrograms = $global:ProgramData.gamingPrograms
     foreach ($programa in $gamingPrograms) {
-        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
+        Write-Host "Instalando $programa." -ForegroundColor DarkBlue
         Install-CustomProgram -programID $programa
     }
 }
 
 function Install-SocialNetworks {
-    Write-Host "Instalando programas Social Network" -ForegroundColor Cyan
+    Write-Host "Instalando programas Social Network." -ForegroundColor Cyan
     $socialNetworkPrograms = Get-ProgramJson -category "socialNetworkPrograms"
 
     foreach ($programa in $socialNetworkPrograms) {
-        Write-Host "Instalando $programa..." -ForegroundColor DarkBlue
+        Write-Host "Instalando $programa." -ForegroundColor DarkBlue
         Install-CustomProgram -programID $programa
     }
 }
 
 function Install-ConsolePrograms {
-    Write-Host "Instalando programas Console" -ForegroundColor Cyan
+    Write-Host "Instalando programas Console." -ForegroundColor Cyan
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
 
     foreach ($programa in $consolePrograms) {
-        Write-Host "Instalando $programa" -ForegroundColor DarkBlue
+        Write-Host "Instalando $programa." -ForegroundColor DarkBlue
         Install-CustomProgram -programID $programa
     }
 }

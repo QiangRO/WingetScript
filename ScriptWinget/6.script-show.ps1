@@ -21,13 +21,14 @@ function Show-InstallHelp {
     )
     Write-Host "Funciones de instalación disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. Install-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Install-GeneralPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Install-DevelopmentPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Install-Browsers." -ForegroundColor DarkMagenta
-    Write-Host "`t5. Install-Games." -ForegroundColor DarkMagenta
-    Write-Host "`t6. Install-SocialNetworks." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Install-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Blocking-Programs ." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Install-CustomProgram." -ForegroundColor DarkMagenta
+    Write-Host "`t3. Install-GeneralPrograms." -ForegroundColor DarkMagenta
+    Write-Host "`t4. Install-DevelopmentPrograms." -ForegroundColor DarkMagenta
+    Write-Host "`t5. Install-Browsers." -ForegroundColor DarkMagenta
+    Write-Host "`t6. Install-Games." -ForegroundColor DarkMagenta
+    Write-Host "`t7. Install-SocialNetworks." -ForegroundColor DarkMagenta
+    Write-Host "`t8. Install-ConsolePrograms." -ForegroundColor DarkMagenta
+    Write-Host "`t9. Blocking-Programs ." -ForegroundColor DarkMagenta
     Write-Host "`tShow-InstallHelp.(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
     
@@ -37,30 +38,34 @@ function Show-InstallHelp {
             Install-All
         }
         "2" {
+            Write-Host "Ejecutando funcion 'Install-CustomProgram'." -ForegroundColor DarkBlue
+            Install-CustomProgram
+        }
+        "3" {
             Write-Host "Ejecutando funcion 'Install-GeneralPrograms'." -ForegroundColor DarkBlue
             Install-GeneralPrograms
         }
-        "3" {
+        "4" {
             Write-Host "Ejecutando funcion 'Install-DevelopmentPrograms'." -ForegroundColor DarkBlue
             Install-DevelopmentPrograms
         }
-        "4" {
+        "5" {
             Write-Host "Ejecutando funcion 'Install-Browsers'." -ForegroundColor DarkBlue
             Install-Browsers
         }
-        "5" {
+        "6" {
             Write-Host "Ejecutando funcion 'Install-Games'." -ForegroundColor DarkBlue
             Install-Games
         }
-        "6" {
+        "7" {
             Write-Host "Ejecutando funcion 'Install-SocialNetworks'." -ForegroundColor DarkBlue
             Install-SocialNetworks
         }
-        "7" {
+        "8" {
             Write-Host "Ejecutando funcion 'Install-ConsolePrograms'." -ForegroundColor DarkBlue
             Install-ConsolePrograms
         }
-        "8" {
+        "9" {
             Write-Host "Ejecutando funcion 'Blocking-Programs '." -ForegroundColor DarkBlue
             Blocking-Programs 
         }
