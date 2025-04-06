@@ -60,22 +60,19 @@ function Reload-Script{
 }
 
 function Inicializer-Function{
-    # Write-Host "Ejecutando primer script"
-    # Write-Host "Ejecutando la funcion de instalacion" -ForegroundColor Cyan
-    # Write-Host "Actualizando App Installer" -ForegroundColor Cyan
-    # winget upgrade -e --id Microsoft.AppInstaller
+    Write-Host "Ejecutando primer script"
+    Write-Host "Ejecutando la funcion de instalacion" -ForegroundColor Cyan
+    Write-Host "Actualizando App Installer" -ForegroundColor Cyan
+    winget upgrade -e --id Microsoft.AppInstaller
 
-    # Write-Host "Instalando Windows Terminal" -ForegroundColor Cyan
-    # winget install -e --id Microsoft.WindowsTerminal
+    Write-Host "Instalando Windows Terminal" -ForegroundColor Cyan
+    winget install -e --id Microsoft.WindowsTerminal
 
-    # Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
-    # winget install -e --id Microsoft.PowerShell
+    Write-Host "Instalando Powershell 7" -ForegroundColor Cyan
+    winget install -e --id Microsoft.PowerShell
 
-    # Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
-    # winget settings
-
-    # # Write-Host "Instalando OhMyPosh" -ForegroundColor Cyan
-    # # winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+    Write-Host "Aplicando configuraciones Winget" -ForegroundColor Cyan
+    winget settings
 
     Write-Host "Llamando al segundo script"
     Start-SecondScript
