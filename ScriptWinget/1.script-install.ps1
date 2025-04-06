@@ -268,7 +268,6 @@ function Install-CustomProgram {
         Write-Host "Error: debes proporcionar un nombre de programa." -ForegroundColor Red
         return
     }
-    Write-Host "Instalando $programID." -ForegroundColor DarkBlue
     switch ($programID) {
         #DEVELOPMENTPROGRAMS
         "Schniz.fnm" {
@@ -305,7 +304,7 @@ function Install-CustomProgram {
         }
         "Microsoft.VisualStudioCode" {
             if (Test-And-Install-DotNetEnvironment) {
-                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"' --force -e
+                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
             }else{
                 Write-Host "Hubo un error al instalar Dotnet 8 o Dotnet Preview"
             }
