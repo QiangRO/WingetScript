@@ -212,26 +212,6 @@ function Add-InitializationLine {
         [string]$programID
     )
     switch ($programID) {
-        "JanDeDobbeleer.OhMyPosh" {
-            $ohmyposhInit = "oh-my-posh init pwsh --config 'C:\Users\aroch\AppData\Local\Programs\oh-my-posh\themes\my-theme.omp.json' | Invoke-Expression"
-            $profilePath = $PROFILE
-            $profileContent = Get-Content -Path $profilePath
-
-            $lineExists = $false
-            foreach ($line in $profileContent) {
-                if ($line.Trim() -eq $ohmyposhInit) {
-                    $lineExists = $true
-                    break
-                }
-            }
-            if (-not $lineExists) {
-                Add-Content -Path $profilePath -Value "`r`n$ohmyposhInit`r`n"
-                Write-Host "Inicialización de $programa añadida al perfil de PowerShell." -ForegroundColor Green
-            }
-            else {
-                Write-Host "Inicialización de $programa ya existe en el perfil de PowerShell." -ForegroundColor Green
-            }
-        }
         "Schniz.fnm" {
             $fnmInit = "fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression"
             $profilePath = $PROFILE
@@ -359,13 +339,6 @@ function Install-CustomProgram {
             }
         }
         #CONSOLEPROGRAMS
-        "JanDeDobbeleer.OhMyPosh" {
-            Write-Host "Procediendo con la instalacion de $programID" -ForegroundColor DarkBlue
-                if (-not (winget install -e --id $programID -s winget)) {
-                    Write-Host "Error la instalar $programID" -ForegroundColor Red
-                }
-                Add-InitializationLine -programID $programID
-        }
         "Terminal-Icons" {
             Install-Module -Name $programID -Repository PSGallery
             Add-InitializationLine -programID $programID
