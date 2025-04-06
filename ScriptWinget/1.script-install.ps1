@@ -46,7 +46,7 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-$functionContentInstall =
+$functionContentInstall =@'
 #VARIABLES GLOBALES
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
