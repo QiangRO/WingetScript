@@ -46,8 +46,10 @@ function Start-CopyJSONPrograms {
 }
 
 Function Add-OhmyposhlineToProfile{
-    $ohmyposhInit = "oh-my-posh init pwsh --config 'C:\Users\aroch\AppData\Local\Programs\oh-my-posh\themes\my-theme.omp.json' | Invoke-Expression"
-    $profileContent = Get-Content -Path $profilePath
+    $mythemePath = Join-Path $env:LOCALAPPDATA "Programs\oh-my-posh\themes\my-theme.omp.json"
+    $ohmyposhInit = "oh-my-posh init pwsh --config '$mythemePath' | Invoke-Expression"
+
+    $profileContent = Get-Content -Path $profilePath -Raw
     $lineExists = $false
     foreach ($line in $profileContent) {
         if ($line.Trim() -eq $ohmyposhInit) {
@@ -57,9 +59,9 @@ Function Add-OhmyposhlineToProfile{
     }
     if (-not $lineExists) {
         Add-Content -Path $profilePath -Value "`r`n$ohmyposhInit`r`n"
-        Write-Host "Inicialización de $programa añadida al perfil de PowerShell." -ForegroundColor Green
+        Write-Host "Inicialización de OhMyPosh añadida al perfil de PowerShell." -ForegroundColor Green
     }else {
-        Write-Host "Inicialización de $programa ya existe en el perfil de PowerShell." -ForegroundColor Green
+        Write-Host "Inicialización de OhMyPosh ya existe en el perfil de PowerShell." -ForegroundColor Green
     }
 }
 
