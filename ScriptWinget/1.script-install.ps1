@@ -5,7 +5,7 @@
 #                                                                                                        #
 #     * Get-ProgramJson.                                                                                 #
 #     * Test-And-Install-Dependencies.                                                                   #
-#     * Add-Initialization-Line.                                                                         #
+#     * Add-InitializationLine.                                                                         #
 #     * Install-All.                                                                                     #
 #     * Install-GeneralPrograms.                                                                         #
 #     * Install-DevelopmentPrograms                                                                      #
@@ -207,7 +207,7 @@ function Test-And-Install-Dependencies {
     }
 }
 
-function Add-Initialization-Line {
+function Add-InitializationLine {
     param (
         [string]$programID
     )
@@ -297,7 +297,7 @@ function Install-CustomProgram {
                 if (-not (winget install -e --id $programID)) {
                     Write-Host "Error al instalar fnm." -ForegroundColor Red
                 }
-                Add-Initialization-Line -programID $programID
+                Add-InitializationLine -programID $programID
             }
             else {
                 Write-Host "No se pudieron instalar todas las dependencias para fnm. Instalación abortada." -ForegroundColor Red
@@ -364,11 +364,11 @@ function Install-CustomProgram {
                 if (-not (winget install -e --id $programID -s winget)) {
                     Write-Host "Error la instalar $programID" -ForegroundColor Red
                 }
-                Add-Initialization-Line -programID $programID
+                Add-InitializationLine -programID $programID
         }
         "Terminal-Icons" {
             Install-Module -Name $programID -Repository PSGallery
-            Add-Initialization-Line -programID $programID
+            Add-InitializationLine -programID $programID
         }
         "pyenv"{
             #NO IMPORTA SI SE EJECUTAR CON ADMINISTRADOR PERO SI CON POLITICAS DE EJECUCION
