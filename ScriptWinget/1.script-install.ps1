@@ -46,11 +46,13 @@
 #winget settings
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
-$functionContentInstall =@'
+$functionContentInstall =
 #VARIABLES GLOBALES
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $jsonPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
+
+$profilePath = Join-Path -Path $scriptPath -ChildPath "Microsoft.PowerShell_profile.ps1"
 
 #OBTENEMOS RUTAS DE C:
 $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
@@ -71,7 +73,7 @@ else {
 }
 
 if (-not $global:ProgramData) {
-    Write-Host "Error: No se han cargado los programas. Ejecute `. $PROFILE` para recargar." -ForegroundColor Red
+    Write-Host "Error: No se han cargado los programas. Ejecute `. $profilePath` para recargar." -ForegroundColor Red
     return
 }
 
@@ -81,7 +83,7 @@ function Get-ProgramJson {
     )
 
     if (-not $global:ProgramData) {
-        Write-Host "Error: No se han cargado los programas. Ejecute `. $PROFILE` para recargar." -ForegroundColor Red
+        Write-Host "Error: No se han cargado los programas. Ejecute `. $profilePath` para recargar." -ForegroundColor Red
         return @()  # Devolvemos un array vacío para evitar errores en los `foreach`
     }
 
@@ -214,7 +216,6 @@ function Add-InitializationLine {
     switch ($programID) {
         "Schniz.fnm" {
             $fnmInit = "fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression"
-            $profilePath = $PROFILE
             $profileContent = Get-Content -Path $profilePath
 
             $lineExists = $false
@@ -234,7 +235,6 @@ function Add-InitializationLine {
         }
         "Terminal-Icons" {
             $iconsInit = "Import-Module -Name Terminal-Icons"
-            $profilePath = $PROFILE
             $profileContent = Get-Content -Path $profilePath
             $lineExists = $false
             foreach ($line in $profileContent) {

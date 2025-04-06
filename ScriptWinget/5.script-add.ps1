@@ -42,8 +42,6 @@ function Add-ProgramId {
         return  
     }
 
-    $profileDirectory = Split-Path -Path $PROFILE
-    $jsonPath = Join-Path -Path $profileDirectory -ChildPath "ProgramasId.json"
     Write-Host "Ruta del JSON: $jsonPath"
 
     $data = Get-Content -Path $jsonPath | ConvertFrom-Json
