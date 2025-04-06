@@ -47,18 +47,20 @@
 #C:\Users\aroch\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState
 
 $functionContentInstall =
+#VARIABLES GLOBALES
 #OBTENEMOS LA RUTA DEL SCRIPT (POWERSHELL)
-# $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-# $scriptIdProgramPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.ps1"
+$scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+$jsonPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
 
-#ARCHIVO DE ID'S
-# . "$scriptIdProgramPath"
+#OBTENEMOS RUTAS DE C:
+$downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
+$programFiles = ${env:ProgramFiles}
+$programFilesX86 = ${env:ProgramFiles(x86)}
 
 ##########################################################################################################
 #                                            UPLOAD DATA JSON                                            #
 ##########################################################################################################
-$scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-$jsonPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
+
 
 if (Test-Path -Path $jsonPath) {
     $global:ProgramData = Get-Content -Path $jsonPath | ConvertFrom-Json
@@ -91,22 +93,6 @@ function Get-ProgramJson {
         return @()
     }
 }
-
-
-#COMPROBAMOS SI LA INSTANCIA SE EJECUTA COMO ADMINISTRADOR
-# $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-
-#VARIABLES GLOBALES
-#$downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
-
-# $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-# $parentPath = Split-Path -Path $scriptPath -Parent
-
-# function Start-CopyKeepass {
-#     $keepassScriptPath = Join-Path -Path $parentPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
-#     Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
-#     & $keepassScriptPath
-# }
 
 ##########################################################################################################
 #                                           DEPENDENCY SCRIPTS                                           #
@@ -339,7 +325,7 @@ function Install-CustomProgram {
         }
         "Microsoft.VisualStudioCode" {
             if (Test-And-Install-DotNetEnvironment) {
-                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
+                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"' --force -e
             }else{
                 Write-Host "Hubo un error al instalar Dotnet 8 o Dotnet Preview"
             }
@@ -385,13 +371,16 @@ function Install-CustomProgram {
             Add-Initialization-Line -programID $programID
         }
         "pyenv"{
-            Install-Module Microsoft.PowerShell.Archive
+            #NO IMPORTA SI SE EJECUTAR CON ADMINISTRADOR PERO SI CON POLITICAS DE EJECUCION
+            #Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+            #Ejecutar como administrador
+            #Install-Module Microsoft.PowerShell.Archive -Scope CurrentUser -Force
             Get-Module -ListAvailable Microsoft.PowerShell.Archive
             Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
         }
         #GAMINGPROGRAMS
         "Blizzard.BattleNet" {
-            winget install -e --id $programID --custom '--lang=enUS --installpath="C:\Program Files (x86)\Battle.net"'
+            winget install -e --id $programID --custom '--lang=enUS' -d "$programFilesX86\Battle.net"
         }
         default {
             winget install -e --id $programID
