@@ -28,7 +28,7 @@ function Show-InstallHelp {
     Write-Host "`t6. Install-Games." -ForegroundColor DarkMagenta
     Write-Host "`t7. Install-SocialNetworks." -ForegroundColor DarkMagenta
     Write-Host "`t8. Install-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t9. Blocking-Programs ." -ForegroundColor DarkMagenta
+    Write-Host "`t9. Blocking-Programs." -ForegroundColor DarkMagenta
     Write-Host "`tShow-InstallHelp.(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
     
