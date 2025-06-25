@@ -292,6 +292,7 @@ function Show-Help {
     Write-Host "`tShow-AddHelp." -ForegroundColor DarkMagenta
     Write-Host "`tTest-Color." -ForegroundColor DarkMagenta
 }
+    
 function Export-DirectoryTree {
     param(
         [Parameter(Mandatory = $true)]
@@ -359,7 +360,6 @@ function Export-DirectoryTree {
     Write-Progress -Activity "Exportación completada" -Completed
     Write-Host "El árbol de directorios fue exportado a: $OutputFile" -ForegroundColor Green
 }
-    
 '@
 
 $profilePath = $PROFILE
