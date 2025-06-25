@@ -27,16 +27,33 @@ function test-dependencies{
     #     Write-Host "Ya está instalado." -ForegroundColor Green
     # }
 
-    $DotNet8Installed = $dotnetSdks -match '^8\.\d+'
-    Write-Host "$DotNet8Installed" -ForegroundColor Green
-    
-    $DotNetPreviewInstalled = $dotnetSdks -match 'preview'
-    Write-Host "$DotNetPreviewInstalled" -ForegroundColor Green
+    # $DotNet8Installed = $dotnetSdks -match '^8\.\d+'
+    # Write-Host "$DotNet8Installed" -ForegroundColor Green
+    # $DotNetPreviewInstalled = $dotnetSdks -match 'preview'
+    # Write-Host "$DotNetPreviewInstalled" -ForegroundColor Green
+
     # if (-not (winget install -e --id Rufus.Rufus)) {
     #     Write-Host "Error al instalar." -ForegroundColor Red
     #     return $false
     # }
     # Write-Host "Instalado correctamente" -ForegroundColor Green
+
+    # $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
+    # Write-Host "downloadsPath $downloadsPath" -ForegroundColor Green
+
+    
+    # Write-Host "programFiles $programFiles" -ForegroundColor Green
+
+    
+    # Write-Host "programFilesX86 $programFilesX86" -ForegroundColor Green
+    
+    $profileDirectory = Split-Path -Path $PROFILE
+    Write-Host "profileDirectory $profileDirectory" -ForegroundColor Green
+
+    $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+    Write-Host "scriptPath $scriptPath" -ForegroundColor Green
+
+    Write-Host "$MyInvocation.MyCommand.Definition"
 }
 
 function Write-Message {
