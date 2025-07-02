@@ -7,6 +7,8 @@
 #     * Show-SaveHelp.                                                                                   #
 #     * Show-UninstallHelp.                                                                              #
 #     * Show-UpdateHelp.                                                                                 #
+#     * Show-IdHelp.                                                                                     #
+#     * Show-UtilityHelp.                                                                                #
 #     * Test-Color                                                                                       #
 #     * Show-Help                                                                                        #
 #                                                                                                        #
@@ -15,6 +17,7 @@ $functionContentShow = @'
 ##########################################################################################################
 #                                              SHOW SCRIPTS                                              #
 ##########################################################################################################
+
 function Show-InstallHelp {
     param(
         [string]$promptContent
@@ -241,30 +244,71 @@ function Show-UpdateHelp {
         }
     }
 }
-function Show-AddHelp {
+
+function Show-IdHelp {
     param (
         [string]$promptContent
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Add-ProgramId." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Add-MenuWindows10." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Uninstall-MenuWindows10." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Test-Color." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-AddHelp.(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`t1. Show-Id." -ForegroundColor DarkMagenta
+    Write-Host "`t2. New-ProgramId." -ForegroundColor DarkMagenta
+    Write-Host "`t3. Remove-Id." -ForegroundColor DarkMagenta
+    Write-Host "`t4. Update-Id." -ForegroundColor DarkMagenta
+    Write-Host "`tShow-IdHelp.(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
         "1"{
-            Write-Host "Ejecutando funcion 'Add-ProgramId'." -ForegroundColor DarkBlue
-            Add-ProgramId
+            Write-Host "Ejecutando funcion 'Show-Id'." -ForegroundColor DarkBlue
+            Show-Id
         }
         "2"{
+            Write-Host "Ejecutando funcion 'New-ProgramId'." -ForegroundColor DarkBlue
+            New-ProgramId
+        }
+        "3"{
+            Write-Host "Ejecutando funcion 'Remove-Id'." -ForegroundColor DarkBlue
+            Remove-Id
+        }
+        "4"{
+            Write-Host "Ejecutando funcion 'Update-Id'." -ForegroundColor DarkBlue
+            Update-Id
+        }
+        Default {
+            if ($promptContent -eq "") {
+                Write-Host "Usted debe ingresar una opción" -ForegroundColor Yellow
+            }
+            else {
+                Write-Host "La opcion ingresada no es valida." -ForegroundColor Red
+            }
+        }
+    }
+}
+
+function Show-UtilityHelp {
+    param (
+        [string]$promptContent
+    )
+    Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
+    Write-Host "`t1. Add-MenuWindows10." -ForegroundColor DarkMagenta
+    Write-Host "`t2. Uninstall-MenuWindows10." -ForegroundColor DarkMagenta
+    Write-Host "`t3. Export-DirectoryTree." -ForegroundColor DarkMagenta
+    Write-Host "`t4. Test-Color." -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UtilityHelp.(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    
+    switch ($promptContent) {
+        "1"{
             Write-Host "Ejecutando funcion 'Add-MenuWindows10'." -ForegroundColor DarkBlue
             Add-MenuWindows10
         }
-        "3"{
+        "2"{
             Write-Host "Ejecutando funcion 'Uninstall-MenuWindows10'." -ForegroundColor DarkBlue
             Uninstall-MenuWindows10
+        }   
+        "3"{
+            Write-Host "Ejecutando funcion 'Export-DirectoryTree'." -ForegroundColor DarkBlue
+            Export-DirectoryTree
         }
         "4"{
             Write-Host "Ejecutando funcion 'Test-Color'." -ForegroundColor DarkBlue
@@ -281,84 +325,14 @@ function Show-AddHelp {
     }
 }
 
-
-
 function Show-Help {
     Write-Host "Las funciones para mostrar información son:" -ForegroundColor DarkMagenta
     Write-Host "`tShow-InstallHelp." -ForegroundColor DarkMagenta
     Write-Host "`tShow-SaveHelp." -ForegroundColor DarkMagenta
     Write-Host "`tShow-UninstallHelp." -ForegroundColor DarkMagenta
     Write-Host "`tShow-UpdateHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-AddHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tTest-Color." -ForegroundColor DarkMagenta
-}
-    
-function Export-DirectoryTree {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RootPath,
-
-        [Parameter(Mandatory = $true)]
-        [string]$OutputFile
-    )
-
-    # Función interna recursiva
-    function Write-Tree {
-        param(
-            [string]$Path,
-            [int]$Level
-        )
-
-        # Escribimos el nombre de la carpeta actual
-        $indent = "`t#" * $Level
-        Add-Content -Path $OutputFile -Value "$indent$(Split-Path -Path $Path -Leaf)"
-        
-        $script:processedItems++
-        Write-Progress -Activity "Exportando árbol de carpetas..." `
-                       -Status "Procesando: $($Path)" `
-                       -PercentComplete (($script:processedItems / $script:totalItems) * 100)
-
-        # Listamos primero las subcarpetas
-        Get-ChildItem -Path $Path -Directory -Force | Sort-Object Name | ForEach-Object {
-            Write-Tree -Path $_.FullName -Level ($Level + 1)
-        }
-
-        # Luego listamos los archivos
-        Get-ChildItem -Path $Path -File -Force | Sort-Object Name | ForEach-Object {
-            $fileIndent = "`t" * ($Level + 1)
-            Add-Content -Path $OutputFile -Value "$fileIndent$($_.Name)"
-            
-            $script:processedItems++
-            Write-Progress -Activity "Exportando árbol de carpetas..." `
-                           -Status "Procesando: $($_.FullName)" `
-                           -PercentComplete (($script:processedItems / $script:totalItems) * 100)
-        }
-    }
-
-    # Validación inicial
-    if (-not (Test-Path -Path $RootPath -PathType Container)) {
-        Write-Error "La ruta especificada no existe o no es una carpeta: $RootPath"
-        return
-    }
-
-    # Contamos el total de elementos (carpetas + archivos)
-    Write-Host "Contando elementos..." -ForegroundColor Cyan
-    $folders = Get-ChildItem -Path $RootPath -Recurse -Directory -Force
-    $files = Get-ChildItem -Path $RootPath -Recurse -File -Force
-    $script:totalItems = $folders.Count + $files.Count + 1  # +1 por la carpeta raíz
-    $script:processedItems = 0
-
-    # Inicializamos: borramos archivo si existe y creamos uno nuevo UTF-8 vacío
-    New-Item -Path $OutputFile -ItemType File -Force | Out-Null
-    Set-Content -Path $OutputFile -Value "Directorio: $RootPath" -Encoding utf8
-    Add-Content -Path $OutputFile -Value ""  # Línea en blanco
-
-    # Comenzamos a escribir el árbol
-    Write-Tree -Path $RootPath -Level 0
-
-    # Cerramos la barra de progreso
-    Write-Progress -Activity "Exportación completada" -Completed
-    Write-Host "El árbol de directorios fue exportado a: $OutputFile" -ForegroundColor Green
+    Write-Host "`tShow-IdHelp." -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UtilityHelp." -ForegroundColor DarkMagenta
 }
 '@
 
