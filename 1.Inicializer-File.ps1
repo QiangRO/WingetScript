@@ -26,7 +26,7 @@ $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 $scriptAutoRun = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
 
 function Start-SecondScript{
-    Start-Process pwsh -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }" -Verb RunAs
+    Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }"
 }
 
 function TestExecute-Functions {
