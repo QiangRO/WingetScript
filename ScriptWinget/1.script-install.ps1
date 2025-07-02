@@ -5,7 +5,7 @@
 #                                                                                                        #
 #     * Get-ProgramJson.                                                                                 #
 #     * Test-And-Install-Dependencies.                                                                   #
-#     * Add-InitializationLine.                                                                         #
+#     * Add-InitializationLine.                                                                          #
 #     * Install-All.                                                                                     #
 #     * Install-GeneralPrograms.                                                                         #
 #     * Install-DevelopmentPrograms                                                                      #

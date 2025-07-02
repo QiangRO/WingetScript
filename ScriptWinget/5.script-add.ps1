@@ -5,9 +5,9 @@
 #                                                                                                        #
 #     * Format-JsonValues.                                                                               #
 #     * Add-ProgramId.                                                                                   #
-#     * Add-MenuWindows10.                                                                              #
-#     * Uninstall-MenuWindows10.                                                                        #
-#     * Test-Color.                                                                                       #
+#     * Add-MenuWindows10.                                                                               #
+#     * Uninstall-MenuWindows10.                                                                         #
+#     * Test-Color.                                                                                      #
 #                                                                                                        #
 ##########################################################################################################
 $functionContentAdd =

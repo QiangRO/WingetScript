@@ -3,10 +3,10 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Show-InstallHelp.                                                                               #
-#     * Show-SaveHelp.                                                                                  #
-#     * Show-UninstallHelp.                                                                             #
-#     * Show-UpdateHelp.                                                                                #
+#     * Show-InstallHelp.                                                                                #
+#     * Show-SaveHelp.                                                                                   #
+#     * Show-UninstallHelp.                                                                              #
+#     * Show-UpdateHelp.                                                                                 #
 #     * Test-Color                                                                                       #
 #     * Show-Help                                                                                        #
 #                                                                                                        #
