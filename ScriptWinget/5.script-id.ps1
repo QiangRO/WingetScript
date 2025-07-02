@@ -4,17 +4,17 @@
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
 #     * Format-JsonValues.                                                                               #
-#     * Add-ProgramId.                                                                                   #
-#     * Add-MenuWindows10.                                                                               #
-#     * Uninstall-MenuWindows10.                                                                         #
-#     * Test-Color.                                                                                      #
+#     * Show-Id                                                                                          #
+#     * New-ProgramId.                                                                                   #
+#     * Remove-Id                                                                                        #
+#     * Update-Id                                                                                        #
 #                                                                                                        #
 ##########################################################################################################
-$functionContentAdd =
-@'
+$functionContentAdd =@'
 ##########################################################################################################
-#                                               ADD SCRIPTS                                              #
+#                                               ID SCRIPTS                                               #
 ##########################################################################################################
+
 function Format-JsonValues {
     param (
         [string]$jsonPath
@@ -29,8 +29,31 @@ function Format-JsonValues {
     Write-Host "Los valores en cada propiedad del JSON han sido ordenados alfabéticamente." -ForegroundColor Cyan
 }
 
+function Show-Id {
+    param (
+        [string]$jsonPath
+    )
+    if (-not (Test-Path -Path $jsonPath)) {
+        Write-Host "Error: No se encontró el archivo JSON en la ruta proporcionada." -ForegroundColor Red
+        return
+    }
+    $data = Get-Content -Path $jsonPath | ConvertFrom-Json
+    Write-Host "`nLista de IDs por categoría:`n" -ForegroundColor Cyan
+    foreach ($property in $data.PSObject.Properties) {
+        Write-Host "→ $($property.Name):" -ForegroundColor Blue
+        if ($property.Value -is [System.Array] -and $property.Value.Count -gt 0) {
+            $property.Value | ForEach-Object {
+                Write-Host "   - $_" -ForegroundColor DarkYellow
+            }
+        }
+        else {
+            Write-Host "   (Vacío)" -ForegroundColor DarkGray
+        }
+        Write-Host ""
+    }
+}
 
-function Add-ProgramId {
+function New-ProgramId {
     param (
         [string]$newProgramID
     )
@@ -76,61 +99,128 @@ function Add-ProgramId {
         Write-Host "El ID '$newProgramID' ya existe en $selectedProperty." -ForegroundColor Yellow
     }
 }
-##########################################################################################################
-#                                      CONFIGURATION SYSTEM SCRIPTS                                      #
-##########################################################################################################
-function Add-MenuWindows10 {
-    $regPath = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
-    if (!(Test-Path $regPath)) {
-        Write-Host "Cambiando el menú contextual al estilo de Windows 10..." -ForegroundColor Yellow
-        New-Item -Path $regPath -Force | Out-Null
-        Set-ItemProperty -Path $regPath -Name "(default)" -Value "" | Out-Null
-        Write-Host "El menú contextual ha sido cambiado al estilo de Windows 10." -ForegroundColor Green
 
-        Write-Host "Reiniciando el Explorador de archivos..." -ForegroundColor Yellow
-        taskkill /f /im explorer.exe | Out-Null
-        Start-Process explorer.exe
+function Remove-Id {
+    param (
+        [string]$jsonPath,
+        [string]$targetId
+    )
+
+    if (-not (Test-Path -Path $jsonPath)) {
+        Write-Host "Error: No se encontró el archivo JSON en la ruta proporcionada." -ForegroundColor Red
+        return
+    }
+
+    if (-not $targetId) {
+        Write-Host "Error: Debe ingresar un ID válido a eliminar." -ForegroundColor Red
+        return
+    }
+
+    $data = Get-Content -Path $jsonPath | ConvertFrom-Json
+    $index = 0
+    $propertyList = @()
+
+    Write-Host "`nSeleccione la categoría de la que desea eliminar el ID:`n" -ForegroundColor Cyan
+
+    foreach ($property in $data.PSObject.Properties) {
+        Write-Host "$index. $($property.Name):" -ForegroundColor Blue
+        Write-Host "$($property.Value -join ', ')" -ForegroundColor DarkYellow
+        $propertyList += $property.Name
+        $index++
+    }
+
+    $userInput = Read-Host "Ingrese el número de la propiedad"
+
+    if ($userInput -match "^\d+$" -and [int]$userInput -ge 0 -and [int]$userInput -lt $propertyList.Count) {
+        $selectedProperty = $propertyList[[int]$userInput]
+        Write-Host "`nPropiedad seleccionada: $selectedProperty`n"
     }
     else {
-        Write-Host "La clave de registro ya existe. No hay cambios que agregar" -ForegroundColor Green
+        Write-Host "Entrada inválida. Intente de nuevo." -ForegroundColor Red
+        return
     }
-}
 
-function Uninstall-MenuWindows10 {
-    $regPath = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+    if ($data.$selectedProperty -contains $targetId) {
+        $data.$selectedProperty = $data.$selectedProperty | Where-Object { $_ -ne $targetId }
 
-    if (Test-Path $regPath) {
-        Write-Host "Revirtiendo el menú contextual al estilo predeterminado de Windows 11..." -ForegroundColor Yellow
-        Remove-Item -Path $regPath -Force
-        Write-Host "El menú contextual ha sido revertido al estilo predeterminado de Windows 11." -ForegroundColor Green
+        $data | ConvertTo-Json -Depth 3 | Set-Content -Path $jsonPath -Force
+        Write-Host "ID '$targetId' eliminado correctamente de $selectedProperty." -ForegroundColor Green
 
-        Write-Host "Reiniciando el Explorador de archivos..." -ForegroundColor Yellow
-        taskkill /f /im explorer.exe | Out-Null
-        Start-Process explorer.exe
+        Format-JsonValues -jsonPath $jsonPath
     }
     else {
-        Write-Host "La clave de registro no existe. No hay cambios que revertir." -ForegroundColor Green
+        Write-Host "El ID '$targetId' no se encontró en la propiedad $selectedProperty." -ForegroundColor Yellow
     }
 }
 
-function Test-Color {
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Black
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Blue
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Cyan
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Gray
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Green
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Magenta
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Red
-    Write-Host "Esto es una prueba de colores." -ForegroundColor White
-    Write-Host "Esto es una prueba de colores." -ForegroundColor Yellow
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkBlue
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkCyan
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkGray
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkGreen
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkMagenta
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkRed
-    Write-Host "Esto es una prueba de colores." -ForegroundColor DarkYellow
+function Update-Id {
+    param (
+        [string]$jsonPath
+    )
+
+    if (-not (Test-Path -Path $jsonPath)) {
+        Write-Host "Error: No se encontró el archivo JSON en la ruta proporcionada." -ForegroundColor Red
+        return
+    }
+
+    $data = Get-Content -Path $jsonPath | ConvertFrom-Json
+    $propertyList = @()
+    $index = 0
+
+    Write-Host "`nSeleccione la categoría donde se encuentra el ID que desea modificar:`n" -ForegroundColor Cyan
+
+    foreach ($property in $data.PSObject.Properties) {
+        Write-Host "$index. $($property.Name):" -ForegroundColor Blue
+        Write-Host "$($property.Value -join ', ')" -ForegroundColor DarkYellow
+        $propertyList += $property.Name
+        $index++
+    }
+
+    $userInput = Read-Host "Ingrese el número de la propiedad"
+    if ($userInput -match "^\d+$" -and [int]$userInput -ge 0 -and [int]$userInput -lt $propertyList.Count) {
+        $selectedProperty = $propertyList[[int]$userInput]
+        Write-Host "`nPropiedad seleccionada: $selectedProperty`n"
+    } else {
+        Write-Host "Entrada inválida. Intente de nuevo." -ForegroundColor Red
+        return
+    }
+
+    $idList = $data.$selectedProperty
+    if ($idList.Count -eq 0) {
+        Write-Host "La categoría '$selectedProperty' no contiene IDs para modificar." -ForegroundColor Yellow
+        return
+    }
+
+    for ($i = 0; $i -lt $idList.Count; $i++) {
+        Write-Host "$i. $($idList[$i])" -ForegroundColor DarkCyan
+    }
+
+    $idToEditIndex = Read-Host "Ingrese el número del ID que desea modificar"
+    if ($idToEditIndex -match "^\d+$" -and [int]$idToEditIndex -ge 0 -and [int]$idToEditIndex -lt $idList.Count) {
+        $oldId = $idList[$idToEditIndex]
+        $newId = Read-Host "Ingrese el nuevo valor para el ID '$oldId'"
+
+        if ([string]::IsNullOrWhiteSpace($newId)) {
+            Write-Host "Error: El nuevo ID no puede estar vacío." -ForegroundColor Red
+            return
+        }
+
+        if ($data.$selectedProperty -contains $newId) {
+            Write-Host "El ID '$newId' ya existe en esta categoría. No se realizaron cambios." -ForegroundColor Yellow
+            return
+        }
+
+        $data.$selectedProperty[$idToEditIndex] = $newId
+        $data | ConvertTo-Json -Depth 3 | Set-Content -Path $jsonPath -Force
+
+        Write-Host "ID actualizado: '$oldId' → '$newId'" -ForegroundColor Green
+        Format-JsonValues -jsonPath $jsonPath
+    } else {
+        Write-Host "Entrada inválida. Intente de nuevo." -ForegroundColor Red
+    }
 }
+
+
 '@
 
 $profilePath = $PROFILE
