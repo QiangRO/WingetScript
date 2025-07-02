@@ -63,7 +63,6 @@ $programFilesX86 = ${env:ProgramFiles(x86)}
 #                                            UPLOAD DATA JSON                                            #
 ##########################################################################################################
 
-
 if (Test-Path -Path $jsonPath) {
     $global:ProgramData = Get-Content -Path $jsonPath | ConvertFrom-Json
     Write-Host "Datos del archivo JSON fueron cargados." -ForegroundColor Green
