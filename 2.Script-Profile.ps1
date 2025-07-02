@@ -89,14 +89,20 @@ function Start-ScriptUpdate {
     & $wingetUpdateScriptPath
 }
 
-function Start-ScriptAdd {
-    $wingetAddScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\5.script-add.ps1"
+function Start-ScriptId {
+    $wingetAddScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\5.script-id.ps1"
     Write-Host "Inicializando el script de Winget Agregar: $wingetAddScriptPath" -ForegroundColor Cyan
     & $wingetAddScriptPath
 }
 
+function Start-ScriptUtility {
+    $wingetShowScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\6.script-utility.ps1"
+    Write-Host "Inicializando el script de Winget Mostrar: $wingetShowScriptPath" -ForegroundColor Cyan
+    & $wingetShowScriptPath
+}
+
 function Start-ScriptShow {
-    $wingetShowScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\6.script-show.ps1"
+    $wingetShowScriptPath = Join-Path -Path $scriptPath -ChildPath "ScriptWinget\7.script-show.ps1"
     Write-Host "Inicializando el script de Winget Mostrar: $wingetShowScriptPath" -ForegroundColor Cyan
     & $wingetShowScriptPath
 }
@@ -128,7 +134,8 @@ function Profile-Function {
     Start-ScriptDownload
     Start-ScriptDelete
     Start-ScriptUpdate
-    Start-ScriptAdd
+    Start-ScriptId
+    Start-ScriptUtility
     Start-ScriptShow
     Start-CopyJSONPrograms
     Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
