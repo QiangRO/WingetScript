@@ -9,7 +9,7 @@
 #                                                                                                        #
 #     FUNCTIONS:                                                                                         #
 #     * Start-SecondScript.                                                                              #
-#     * TestExecute-Functions.                                                                           #
+#     * Test-Functions.                                                                           #
 #     * Inicializer-Function.                                                                            #
 #     * Main.                                                                                            #
 #                                                                                                        #
@@ -23,14 +23,19 @@ param (
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
-#
-$scriptAutoRun = Join-Path -Path $scriptPath -ChildPath "1.Inicializer-File.ps1"
 
 function Start-SecondScript{
-    Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }"
+    # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }"
+
+    $arguments = "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function'"
+    if ($ChainExecution) {
+        $arguments += " -ChainExecution"
+    }
+    $arguments += " }"
+    Start-Process pwsh -Verb RunAs -ArgumentList $arguments
 }
 
-function TestExecute-Functions {
+function Test-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
             & $FunctionName
@@ -38,26 +43,6 @@ function TestExecute-Functions {
             Write-Host "La función '$FunctionName' no existe." -ForegroundColor Red
         }
     }
-}
-
-function Reload-Script{
-
-    param (
-        [string]$scriptToRun = "$PSScriptRoot\1.Inicializer-File.ps1",
-        [string[]]$functionNames = @("Inicializer-Function")
-    )
-
-    $fnParams = $functionNames -join ' '
-
-    Write-Host "Reiniciando script como administrador..." -ForegroundColor Cyan
-    Start-Process powershell.exe -Verb RunAs -ArgumentList "-ExecutionPolicy Bypass -File `"$scriptToRun`" -FunctionNames $fnParams"
-
-    # Cerrar la ventana actual después de ejecutar el nuevo proceso
-    Stop-Process -Id $PID
-
-    #Realizar un script que detenga el script y lo vuelva a ejecutar
-    Write-Host "Ejecutando el orquestador 1.Inicializer-File.ps1 como administrador." -ForegroundColor Cyan
-    Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$scriptToRun' -FunctionNames 'Inicializer-Function'}"
 }
 
 function Inicializer-Function{
@@ -78,14 +63,9 @@ function Inicializer-Function{
     Write-Host "Instalando OhMyPosh" -ForegroundColor Cyan
     winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 
-    
-    if ($ChainExecution) {
-        Write-Host "Llamando al segundo script"
-        Start-SecondScript
-    }else {
-        Write-Host "Script '1.Inicializer-File.ps1''fue ejecutado correctamente"
-    }
-    
+    Write-Host "Llamando al segundo script"
+    Start-SecondScript
+    Write-Host "Script '1.Inicializer-File.ps1''fue ejecutado correctamente"
 }
 
 function Main {
@@ -95,7 +75,7 @@ function Main {
 }
 
 if ($FunctionNames) {
-    TestExecute-Functions
+    Test-Functions
 } else {
     Main
 }

@@ -11,7 +11,7 @@
 #     * Start-CopyOhMyPosh                                                                               #
 #     * Start-CopyTerminalSettings                                                                       #
 #     * Start-CopyWingetSettings                                                                         #
-#     * TestExecute-Functions                                                                            #
+#     * Test-Functions                                                                            #
 #     * Copyfiles-Function                                                                               #
 #     * Main.                                                                                            #
 #                                                                                                        #
@@ -55,7 +55,7 @@ function Start-CopyWingetSettings {
     & $wingetScriptPath
 }
 
-function TestExecute-Functions {
+function Test-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
             & $FunctionName
@@ -80,7 +80,7 @@ function Main {
 }
 
 if ($FunctionNames) {
-    TestExecute-Functions
+    Test-Functions
 }else {
     Main
 }

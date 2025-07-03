@@ -17,7 +17,7 @@
 #     * Start-ScriptShow                                                                                 #
 #     * Start-CopyJSONPrograms                                                                           #
 #     * Start-PSProfile                                                                                  #
-#     * TestExecute-Functions                                                                            #
+#     * Test-Functions                                                                            #
 #     * Profile-Function                                                                                 #
 #     * Main.                                                                                            #
 #                                                                                                        #
@@ -34,7 +34,13 @@ $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 $profilePath = $PROFILE
 $profileDir = [System.IO.Path]::GetDirectoryName($profilePath)
 function Start-ThirdScript{
-    Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function' }"
+    # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function' }"
+    $arguments = "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function'"
+    if ($ChainExecution) {
+        $arguments += " -ChainExecution"
+    }
+    $arguments += " }"
+    Start-Process pwsh -Verb RunAs -ArgumentList $arguments
 }
 
 function Start-CopyJSONPrograms {
@@ -114,7 +120,7 @@ function Start-PSProfile {
     }
 }
 
-function TestExecute-Functions {
+function Test-Functions {
     foreach ($FunctionName in $FunctionNames) {
         if (Get-Command -Name $FunctionName -ErrorAction SilentlyContinue) {
             & $FunctionName
@@ -140,13 +146,9 @@ function Profile-Function {
     Start-ScriptShow
     Start-CopyJSONPrograms
     Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
-
-    if ($ChainExecution) {
-        Write-Host "Llamando al tercer script"
-        Start-ThirdScript
-    }else {
-        Write-Host "Script '2.Script-Profile.ps1''fue ejecutado correctamente"
-    }
+    Write-Host "Llamando al tercer script"
+    Start-ThirdScript
+    Write-Host "Script '2.Script-Profile.ps1''fue ejecutado correctamente"
 }
 
 function Main {
@@ -154,7 +156,7 @@ function Main {
 }
 
 if ($FunctionNames) {
-    TestExecute-Functions
+    Test-Functions
 }else {
     Main
 }
