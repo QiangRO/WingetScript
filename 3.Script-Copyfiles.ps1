@@ -11,7 +11,7 @@
 #     * Start-CopyOhMyPosh                                                                               #
 #     * Start-CopyTerminalSettings                                                                       #
 #     * Start-CopyWingetSettings                                                                         #
-#     * Test-Functions                                                                            #
+#     * Test-Functions                                                                                   #
 #     * Copyfiles-Function                                                                               #
 #     * Main.                                                                                            #
 #                                                                                                        #
