@@ -33,14 +33,20 @@ $Third = Join-Path -Path $scriptPath -ChildPath "3.Script-Copyfiles.ps1"
 
 $profilePath = $PROFILE
 $profileDir = [System.IO.Path]::GetDirectoryName($profilePath)
+
 function Start-ThirdScript{
     # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function' }"
-    $arguments = "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Third' -FunctionNames 'Copyfiles-Function'"
+
+    $command = ". '$Third' -FunctionNames 'Copyfiles-Function'"
     if ($ChainExecution) {
-        $arguments += " -ChainExecution"
+        $command += " -ChainExecution"
     }
-    $arguments += " }"
-    Start-Process pwsh -Verb RunAs -ArgumentList $arguments
+    $processArgs = @(
+        "-NoExit",
+        "-ExecutionPolicy", "Bypass",
+        "-Command", "& { $command }"
+    )
+    Start-Process pwsh -Verb RunAs -ArgumentList $processArgs
 }
 
 function Start-CopyJSONPrograms {

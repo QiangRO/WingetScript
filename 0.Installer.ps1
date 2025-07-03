@@ -48,20 +48,37 @@ switch ($choice) {
     "1" {
         Write-Host "Ejecutando el orquestador 1.Inicializer-File.ps1 como administrador." -ForegroundColor Cyan
         
-        Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function'}"
+        Start-Process powershell.exe -Verb RunAs -ArgumentList @(
+            "-NoExit",
+            "-ExecutionPolicy Bypass",
+            "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function'}"
+        ) 
     }
     "2" {
         Write-Host "Ejecutando el orquestador 2.Script-Profile.ps1 como administrador." -ForegroundColor Cyan
 
-        Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' }"
+        Start-Process pwsh -Verb RunAs -ArgumentList @(
+            "-NoExit",
+            "-ExecutionPolicy Bypass",
+            "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' }"
+        )
     }
     "3" {
         Write-Host "Ejecutando el orquestador 3.Script-Copyfiles.ps1 como administrador." -ForegroundColor Cyan
         
-        Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script3' -FunctionNames 'Copyfiles-Function' }"
+        Start-Process pwsh -Verb RunAs -ArgumentList @(
+            "-NoExit",
+            "-ExecutionPolicy Bypass",
+            "-Command", "& { . '$script3' -FunctionNames 'Copyfiles-Function' }"
+        )
     }
     "4" {
-        Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function' -ChainExecution}"
+        Start-Process powershell.exe -Verb RunAs -ArgumentList @(
+            "-NoExit",
+            "-ExecutionPolicy", "Bypass",
+            "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function' -ChainExecution }"
+        )
+        
     }
     default {
         Write-Host "Opción no válida" -ForegroundColor Red

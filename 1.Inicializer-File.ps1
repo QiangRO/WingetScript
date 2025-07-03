@@ -9,7 +9,7 @@
 #                                                                                                        #
 #     FUNCTIONS:                                                                                         #
 #     * Start-SecondScript.                                                                              #
-#     * Test-Functions.                                                                           #
+#     * Test-Functions.                                                                                  #
 #     * Inicializer-Function.                                                                            #
 #     * Main.                                                                                            #
 #                                                                                                        #
@@ -27,12 +27,16 @@ $Second = Join-Path -Path $scriptPath -ChildPath "2.Script-Profile.ps1"
 function Start-SecondScript{
     # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function' }"
 
-    $arguments = "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Profile-Function'"
+    $command = ". '$Second' -FunctionNames 'Profile-Function'"
     if ($ChainExecution) {
-        $arguments += " -ChainExecution"
+        $command += " -ChainExecution"
     }
-    $arguments += " }"
-    Start-Process pwsh -Verb RunAs -ArgumentList $arguments
+    $processArgs = @(
+        "-NoExit",
+        "-ExecutionPolicy", "Bypass",
+        "-Command", "& { $command }"
+    )
+    Start-Process pwsh -Verb RunAs -ArgumentList $processArgs
 }
 
 function Test-Functions {
