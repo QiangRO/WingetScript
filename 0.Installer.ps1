@@ -61,10 +61,9 @@ switch ($choice) {
         Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script3' -FunctionNames 'Copyfiles-Function' }"
     }
     "4" {
-        Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function'}"
-        Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' -ChainExecution}" 
+        Start-Process powershell.exe -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function' -ChainExecution}"
     }
-    default { Write-Host "Opción no válida" -ForegroundColor Red }
+    default {
+        Write-Host "Opción no válida" -ForegroundColor Red
+    }
 }
-
-
