@@ -18,7 +18,8 @@
 ##########################################################################################################
 
 param(
-    [string[]]$FunctionNames
+    [string[]]$FunctionNames,
+    [switch]$ChainExecution
 )
 
 #Rutas
@@ -71,7 +72,7 @@ function Copyfiles-Function {
     Start-CopyOhMyPosh
     Start-CopyTerminalSettings
     Start-CopyWingetSettings
-    Write-Host "Ejecucion de scripts finalizada" -ForegroundColor Green
+    Write-Host "Script '3.Script-Copyfiles.ps1''fue ejecutado correctamente" -ForegroundColor Green
 }
 
 function Main {

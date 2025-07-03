@@ -24,7 +24,8 @@
 ##########################################################################################################
 
 param(
-    [string[]]$FunctionNames
+    [string[]]$FunctionNames,
+    [switch]$ChainExecution
 )
 #Rutas
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
@@ -139,8 +140,13 @@ function Profile-Function {
     Start-ScriptShow
     Start-CopyJSONPrograms
     Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
-    Write-Host "Llamando al tercer script"
-    Start-ThirdScript
+
+    if ($ChainExecution) {
+        Write-Host "Llamando al tercer script"
+        Start-ThirdScript
+    }else {
+        Write-Host "Script '2.Script-Profile.ps1''fue ejecutado correctamente"
+    }
 }
 
 function Main {

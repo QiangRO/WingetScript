@@ -16,7 +16,8 @@
 ##########################################################################################################
 
 param (
-    [string[]]$FunctionNames
+    [string[]]$FunctionNames,
+    [switch]$ChainExecution
 )
 
 #Rutas
@@ -77,8 +78,14 @@ function Inicializer-Function{
     Write-Host "Instalando OhMyPosh" -ForegroundColor Cyan
     winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 
-    Write-Host "Llamando al segundo script"
-    Start-SecondScript
+    
+    if ($ChainExecution) {
+        Write-Host "Llamando al segundo script"
+        Start-SecondScript
+    }else {
+        Write-Host "Script '1.Inicializer-File.ps1''fue ejecutado correctamente"
+    }
+    
 }
 
 function Main {
