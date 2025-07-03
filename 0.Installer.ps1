@@ -18,7 +18,6 @@ $script1 = Join-Path $tempFolder "1.Inicializer-File.ps1"
 $script2 = Join-Path $tempFolder "2.Script-Profile.ps1"
 $script3 = Join-Path $tempFolder "3.Script-Copyfiles.ps1"
 
-
 #PRUEBAS
 # $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
@@ -28,7 +27,6 @@ $script3 = Join-Path $tempFolder "3.Script-Copyfiles.ps1"
 
 #Ejecuta N cantidad de funciones
 # Start-Process pwsh -Verb RunAs -ArgumentList "-NoExit", "-ExecutionPolicy Bypass", "-Command", "& { . '$Second' -FunctionNames 'Main' }" 
-
 
 Invoke-WebRequest -Uri "https://github.com/QiangRO/WingetScript/archive/refs/heads/main.zip" -OutFile $tempZip
 
@@ -42,7 +40,6 @@ Write-Host "2. Script de perfil"
 Write-Host "3. Copiar archivos"
 Write-Host "4. Ejecutar todo"
 $choice = Read-Host "Ingresa una opción [1-4]"
-
 
 switch ($choice) {
     "1" {
@@ -60,7 +57,7 @@ switch ($choice) {
         Start-Process pwsh -Verb RunAs -ArgumentList @(
             "-NoExit",
             "-ExecutionPolicy Bypass",
-            "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' }"
+            "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' -ChainExecution}"
         )
     }
     "3" {
@@ -78,7 +75,6 @@ switch ($choice) {
             "-ExecutionPolicy", "Bypass",
             "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function' -ChainExecution }"
         )
-        
     }
     default {
         Write-Host "Opción no válida" -ForegroundColor Red
