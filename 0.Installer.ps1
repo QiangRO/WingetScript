@@ -48,7 +48,7 @@ switch ($choice) {
         Start-Process powershell.exe -Verb RunAs -ArgumentList @(
             "-NoExit",
             "-ExecutionPolicy Bypass",
-            "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function'}"
+            "-Command", "& { . '$script1' -FunctionNames 'Inicializer-Function' }"
         ) 
     }
     "2" {
@@ -57,7 +57,7 @@ switch ($choice) {
         Start-Process pwsh -Verb RunAs -ArgumentList @(
             "-NoExit",
             "-ExecutionPolicy Bypass",
-            "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' -ChainExecution}"
+            "-Command", "& { . '$script2' -FunctionNames 'Profile-Function' }"
         )
     }
     "3" {
