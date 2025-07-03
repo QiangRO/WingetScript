@@ -152,7 +152,7 @@ function Profile-Function {
     Start-ScriptShow
     Start-CopyJSONPrograms
     Write-Host "Todas las funciones han sido escritas en el perfil" -ForegroundColor Green
-    if ($ChainExecution) {
+    if ($ChainExecution.IsPresent) {
         Write-Host "Llamando al tercer script"
         Start-ThirdScript
     }else {
