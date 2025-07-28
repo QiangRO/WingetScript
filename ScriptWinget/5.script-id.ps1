@@ -3,9 +3,9 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Format-JsonValues.                                                                               #
+#     * Format-JsonValues                                                                                #
 #     * Show-Id                                                                                          #
-#     * New-ProgramId.                                                                                   #
+#     * New-Id                                                                                           #
 #     * Remove-Id                                                                                        #
 #     * Update-Id                                                                                        #
 #                                                                                                        #
@@ -53,7 +53,7 @@ function Show-Id {
     }
 }
 
-function New-ProgramId {
+function New-Id {
     param (
         [string]$newProgramID
     )
