@@ -3,12 +3,12 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Show-InstallHelp.                                                                                #
-#     * Show-SaveHelp.                                                                                   #
-#     * Show-UninstallHelp.                                                                              #
-#     * Show-UpdateHelp.                                                                                 #
-#     * Show-IdHelp.                                                                                     #
-#     * Show-UtilityHelp.                                                                                #
+#     * Show-InstallHelp                                                                                 #
+#     * Show-SaveHelp                                                                                    #
+#     * Show-UninstallHelp                                                                               #
+#     * Show-UpdateHelp                                                                                  #
+#     * Show-IdHelp                                                                                      #
+#     * Show-UtilityHelp                                                                                 #
 #     * Test-Color                                                                                       #
 #     * Show-Help                                                                                        #
 #                                                                                                        #
@@ -23,17 +23,17 @@ function Show-InstallHelp {
         [string]$promptContent
     )
     Write-Host "Funciones de instalación disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Install-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Install-CustomProgram." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Install-GeneralPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Install-DevelopmentPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t5. Install-Browsers." -ForegroundColor DarkMagenta
-    Write-Host "`t6. Install-Games." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Install-SocialNetworks." -ForegroundColor DarkMagenta
-    Write-Host "`t8. Install-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t9. Blocking-Programs." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-InstallHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Install-All" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Install-CustomProgram" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Install-GeneralPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Install-DevelopmentPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t5. Install-Browsers" -ForegroundColor DarkMagenta
+    Write-Host "`t6. Install-Games" -ForegroundColor DarkMagenta
+    Write-Host "`t7. Install-SocialNetworks" -ForegroundColor DarkMagenta
+    Write-Host "`t8. Install-ConsolePrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t9. Blocking-Programs" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-InstallHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
         "1" {
@@ -88,15 +88,15 @@ function Show-SaveHelp {
         [string]$promptContent
     )
     Write-Host "Funciones de descarga disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Save-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Save-GeneralPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Save-DevelopmentPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Save-Browsers." -ForegroundColor DarkMagenta
-    Write-Host "`t5. Save-Games." -ForegroundColor DarkMagenta
-    Write-Host "`t6. Save-SocialNetworks." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Save-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-SaveHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Save-All" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Save-GeneralPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Save-DevelopmentPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Save-Browsers" -ForegroundColor DarkMagenta
+    Write-Host "`t5. Save-Games" -ForegroundColor DarkMagenta
+    Write-Host "`t6. Save-SocialNetworks" -ForegroundColor DarkMagenta
+    Write-Host "`t7. Save-ConsolePrograms" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-SaveHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     switch ($promptContent) {
         "1" {
             Write-Host "Ejecutando funcion 'Save-All'." -ForegroundColor DarkBlue
@@ -142,15 +142,15 @@ function Show-UninstallHelp {
         [string]$promptContent
     )
     Write-Host "Funciones de eliminación disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Uninstall-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Uninstall-GeneralPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Uninstall-DevelopmentPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Uninstall-Browsers." -ForegroundColor DarkMagenta
-    Write-Host "`t5. Uninstall-Games." -ForegroundColor DarkMagenta
-    Write-Host "`t6. Uninstall-SocialNetworks." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Uninstall-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UninstallHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Uninstall-All" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Uninstall-GeneralPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Uninstall-DevelopmentPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Uninstall-Browsers" -ForegroundColor DarkMagenta
+    Write-Host "`t5. Uninstall-Games" -ForegroundColor DarkMagenta
+    Write-Host "`t6. Uninstall-SocialNetworks" -ForegroundColor DarkMagenta
+    Write-Host "`t7. Uninstall-ConsolePrograms" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UninstallHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     switch ($promptContent) {
         "1" {
             Write-Host "Ejecutando funcion 'Uninstall-All'." -ForegroundColor DarkBlue
@@ -196,15 +196,15 @@ function Show-UpdateHelp {
         [string]$promptContent
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Update-All." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Update-GeneralPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Update-DevelopmentPrograms." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Update-Browsers." -ForegroundColor DarkMagenta
-    Write-Host "`t5. Update-Games." -ForegroundColor DarkMagenta
-    Write-Host "`t6. Update-SocialNetworks." -ForegroundColor DarkMagenta
-    Write-Host "`t7. Update-ConsolePrograms." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UpdateHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Update-All" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Update-GeneralPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Update-DevelopmentPrograms" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Update-Browsers" -ForegroundColor DarkMagenta
+    Write-Host "`t5. Update-Games" -ForegroundColor DarkMagenta
+    Write-Host "`t6. Update-SocialNetworks" -ForegroundColor DarkMagenta
+    Write-Host "`t7. Update-ConsolePrograms" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UpdateHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     switch ($promptContent) {
         "1" {
             Write-Host "Ejecutando funcion 'Update-All'." -ForegroundColor DarkBlue
@@ -250,12 +250,12 @@ function Show-IdHelp {
         [string]$promptContent
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Show-Id." -ForegroundColor DarkMagenta
-    Write-Host "`t2. New-ProgramId." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Remove-Id." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Update-Id." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-IdHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Show-Id" -ForegroundColor DarkMagenta
+    Write-Host "`t2. New-Id" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Remove-Id" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Update-Id" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-IdHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
         "1"{
@@ -263,8 +263,8 @@ function Show-IdHelp {
             Show-Id
         }
         "2"{
-            Write-Host "Ejecutando funcion 'New-ProgramId'." -ForegroundColor DarkBlue
-            New-ProgramId
+            Write-Host "Ejecutando funcion 'New-Id'." -ForegroundColor DarkBlue
+            New-Id
         }
         "3"{
             Write-Host "Ejecutando funcion 'Remove-Id'." -ForegroundColor DarkBlue
@@ -290,12 +290,12 @@ function Show-UtilityHelp {
         [string]$promptContent
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Add-MenuWindows10." -ForegroundColor DarkMagenta
-    Write-Host "`t2. Uninstall-MenuWindows10." -ForegroundColor DarkMagenta
-    Write-Host "`t3. Export-DirectoryTree." -ForegroundColor DarkMagenta
-    Write-Host "`t4. Test-Color." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UtilityHelp.(espacio+opción)" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-Help." -ForegroundColor DarkMagenta
+    Write-Host "`t1. Add-MenuWindows10" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Uninstall-MenuWindows10" -ForegroundColor DarkMagenta
+    Write-Host "`t3. Export-DirectoryTree" -ForegroundColor DarkMagenta
+    Write-Host "`t4. Test-Color" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UtilityHelp(espacio+opción)" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-Help" -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
         "1"{
@@ -327,12 +327,12 @@ function Show-UtilityHelp {
 
 function Show-Help {
     Write-Host "Las funciones para mostrar información son:" -ForegroundColor DarkMagenta
-    Write-Host "`tShow-InstallHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-SaveHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UninstallHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UpdateHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-IdHelp." -ForegroundColor DarkMagenta
-    Write-Host "`tShow-UtilityHelp." -ForegroundColor DarkMagenta
+    Write-Host "`tShow-InstallHelp" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-SaveHelp" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UninstallHelp" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UpdateHelp" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-IdHelp" -ForegroundColor DarkMagenta
+    Write-Host "`tShow-UtilityHelp" -ForegroundColor DarkMagenta
 }
 '@
 
