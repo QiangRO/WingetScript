@@ -31,26 +31,23 @@ function Format-JsonValues {
 
 function Show-Id {
     param (
-        [string]$jsonPath
+        [string]$newProgramID
     )
-    if (-not (Test-Path -Path $jsonPath)) {
-        Write-Host "Error: No se encontró el archivo JSON en la ruta proporcionada." -ForegroundColor Red
-        return
-    }
+
+    Write-Host "Ruta del JSON: $jsonPath" -ForegroundColor Cyan
+
     $data = Get-Content -Path $jsonPath | ConvertFrom-Json
-    Write-Host "`nLista de IDs por categoría:`n" -ForegroundColor Cyan
-    foreach ($property in $data.PSObject.Properties) {
-        Write-Host "→ $($property.Name):" -ForegroundColor Blue
-        if ($property.Value -is [System.Array] -and $property.Value.Count -gt 0) {
-            $property.Value | ForEach-Object {
-                Write-Host "   - $_" -ForegroundColor DarkYellow
-            }
+    $index = 0
+
+    $table = foreach ($property in $data.PSObject.Properties) {
+        [PSCustomObject]@{
+            Index    = $index
+            Categoria = $property.Name 
+            IDs       = ($property.Value -join ', ')
         }
-        else {
-            Write-Host "   (Vacío)" -ForegroundColor DarkGray
-        }
-        Write-Host ""
+        $index++
     }
+    $table | Format-Table -Wrap -AutoSize
 }
 
 function New-Id {
@@ -68,13 +65,18 @@ function New-Id {
     Write-Host "Ruta del JSON: $jsonPath"
 
     $data = Get-Content -Path $jsonPath | ConvertFrom-Json
+    $index = 0
 
-    foreach ($property in $data.PSObject.Properties) {
-        Write-Host "$index. $($property.Name): " -ForegroundColor Blue
-        Write-Host "$($property.Value -join ', ')" -ForegroundColor DarkYellow
-        $propertyList += $property.Name
+    $table = foreach ($property in $data.PSObject.Properties) {
+        [PSCustomObject]@{
+            Index    = $index
+            Categoria = $property.Name 
+            IDs       = ($property.Value -join ', ')
+        }
         $index++
     }
+    $table | Format-Table -Wrap -AutoSize
+    
     $userInput = Read-Host "Ingrese el número de la propiedad a la que desea agregar el ID"
 
     if ($userInput -match "^\d+$" -and [int]$userInput -ge 0 -and [int]$userInput -lt $propertyList.Count) {
