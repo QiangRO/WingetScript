@@ -351,7 +351,7 @@ function Install-CustomProgram {
         }
         #GAMINGPROGRAMS
         "Blizzard.BattleNet" {
-            winget install -e --id $programID --custom '--lang=enUS' -d "$programFilesX86\Battle.net"
+            winget install -e --id $programID -l "$programFilesX86\Battle.net" --custom '--lang=enUS' 
         }
         default {
             winget install -e --id $programID
