@@ -26,16 +26,12 @@ param(
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 function Start-InstallFonts {
-    $fontScriptPath = Join-Path -Path $scriptPath -ChildPath "Fonts\install-fonts.ps1"
-    Write-Host "Inicializando el script de instalación de fuentes: $fontScriptPath" -ForegroundColor Cyan
-    & $fontScriptPath
+    # $fontScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\Fonts\install-fonts.ps1"
+    # Write-Host "Inicializando el script de instalación de fuentes: $fontScriptPath" -ForegroundColor Cyan
+    # & $fontScriptPath
+    oh-my-posh font install hack
+    oh-my-posh font install firacode
 }
-
-# function Start-CopyKeepass {
-#     $keepassScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\Keepass\copy-plugins-database.ps1"
-#     Write-Host "Inicializando el script de Keepass: $keepassScriptPath" -ForegroundColor Cyan
-#     & $keepassScriptPath
-# }
 
 function Start-CopyOhMyPosh {
     $ohMyPoshScriptPath = Join-Path -Path $scriptPath -ChildPath "CopyableFiles\OhMyPosh\copy-theme-settings.ps1"
