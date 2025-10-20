@@ -65,7 +65,9 @@ function Inicializer-Function{
     winget settings
 
     Write-Host "Instalando OhMyPosh" -ForegroundColor Cyan
-    winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+    #winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
+    winget install JanDeDobbeleer.OhMyPosh -e --version 26.24.1
+
 
     if ($ChainExecution.IsPresent) {
         Write-Host "Llamando al segundo script"
