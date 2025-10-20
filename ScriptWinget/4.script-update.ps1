@@ -3,13 +3,13 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Update-All.                                                                                      #
-#     * Update-GeneralPrograms.                                                                          #
-#     * Update-DevelopmentPrograms                                                                       #
-#     * Update-Browsers.                                                                                 #
-#     * Update-Games.                                                                                    #
-#     * Update-SocialNetworks.                                                                           #
-#     * Update-ConsolePrograms.                                                                          #
+#     * UpdateAll.                                                                                      #
+#     * UpdateGeneral.                                                                          #
+#     * UpdateDevelopment                                                                       #
+#     * UpdateBrowser.                                                                                 #
+#     * UpdateGame.                                                                                    #
+#     * UpdateSocial.                                                                           #
+#     * UpdateConsole.                                                                          #
 #                                                                                                        #
 ##########################################################################################################
 $functionContentUpdate = @'
@@ -17,7 +17,7 @@ $functionContentUpdate = @'
 #                                             UPDATE SCRIPTS                                             #
 ##########################################################################################################
 
-function Update-GeneralPrograms {
+function UpdateGeneral {
     Write-Host "Actualizando General Programas" -ForegroundColor Cyan
     $generalPrograms = Get-ProgramJson -category "generalPrograms"
     foreach ($programa in $generalPrograms) {
@@ -26,7 +26,7 @@ function Update-GeneralPrograms {
     }
 }
 
-function Update-DevelopmentPrograms {
+function UpdateDevelopment {
     Write-Host "Actualizando programas Development" -ForegroundColor Cyan
 
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
@@ -37,7 +37,7 @@ function Update-DevelopmentPrograms {
     }
 }
 
-function Update-Browsers {
+function UpdateBrowser {
     Write-Host "Actualizando programas Browser" -ForegroundColor Cyan
 
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
@@ -48,7 +48,7 @@ function Update-Browsers {
     }
 }
 
-function Update-Games {
+function UpdateGame {
     Write-Host "Actualizando programas Gaming" -ForegroundColor Cyan
 
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
@@ -59,7 +59,7 @@ function Update-Games {
     }
 }
 
-function Update-SocialNetworks {
+function UpdateSocial {
     Write-Host "Actualizando programas Social Network" -ForegroundColor Cyan
 
     $socialNetworkPrograms = Get-ProgramJson -category "socialNetworkPrograms"
@@ -70,7 +70,7 @@ function Update-SocialNetworks {
     }
 }
 
-function Update-ConsolePrograms {
+function UpdateConsole {
     Write-Host "Actualizando programas Console" -ForegroundColor Cyan
     
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
@@ -81,14 +81,14 @@ function Update-ConsolePrograms {
     }
 }
 
-function Update-All {
+function UpdateAll {
     Write-Host "Actualizando todos los programas instalados." -ForegroundColor Cyan
-    Update-GeneralPrograms
-    Update-DevelopmentPrograms
-    Update-Browsers
-    Update-Games
-    Update-SocialNetworks
-    Update-ConsolePrograms
+    UpdateGeneral
+    UpdateDevelopment
+    UpdateBrowser
+    UpdateGame
+    UpdateSocial
+    UpdateConsole
 }
 '@
 

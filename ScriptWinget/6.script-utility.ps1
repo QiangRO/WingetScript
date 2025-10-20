@@ -6,10 +6,7 @@
 #     * Add-MenuWindows10.                                                                               #
 #     * Uninstall-MenuWindows10.                                                                         #
 #     * Export-DirectoryTree                                                                             #
-#     * Test-Color                                                                                       #
-#                                                                                                        #
-#                                                                                                        #
-#                                                                                                        #
+#     * TestColor                                                                                        #
 #                                                                                                        #
 #                                                                                                        #
 ##########################################################################################################
@@ -124,7 +121,7 @@ function Export-DirectoryTree {
     Write-Host "El árbol de directorios fue exportado a: $OutputFile" -ForegroundColor Green
 }
 
-function Test-Color {
+function TestColor {
     Write-Host "Esto es una prueba de colores." -ForegroundColor Black
     Write-Host "Esto es una prueba de colores." -ForegroundColor Blue
     Write-Host "Esto es una prueba de colores." -ForegroundColor Cyan

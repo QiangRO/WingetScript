@@ -4,10 +4,10 @@
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
 #     * Format-JsonValues                                                                                #
-#     * Show-Id                                                                                          #
-#     * New-Id                                                                                           #
-#     * Remove-Id                                                                                        #
-#     * Update-Id                                                                                        #
+#     * ShowId                                                                                          #
+#     * NewId                                                                                           #
+#     * RemoveId                                                                                        #
+#     * UpdateId                                                                                        #
 #                                                                                                        #
 ##########################################################################################################
 $functionContentAdd =@'
@@ -29,7 +29,7 @@ function Format-JsonValues {
     Write-Host "Los valores en cada propiedad del JSON han sido ordenados alfabéticamente." -ForegroundColor Cyan
 }
 
-function Show-Id {
+function ShowId {
     param (
         [string]$newProgramID
     )
@@ -50,7 +50,7 @@ function Show-Id {
     $table | Format-Table -Wrap -AutoSize
 }
 
-function New-Id {
+function NewId {
     param (
         [string]$newProgramID
     )
@@ -102,7 +102,7 @@ function New-Id {
     }
 }
 
-function Remove-Id {
+function RemoveId {
     param (
         [string]$jsonPath,
         [string]$targetId
@@ -155,7 +155,7 @@ function Remove-Id {
     }
 }
 
-function Update-Id {
+function UpdateId {
     param (
         [string]$jsonPath
     )

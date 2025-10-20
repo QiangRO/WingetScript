@@ -3,20 +3,20 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Save-All.                                                                                        #
-#     * Save-GeneralPrograms.                                                                            #
-#     * Save-DevelopmentPrograms                                                                         #
-#     * Save-Browsers.                                                                                   #
-#     * Save-Games.                                                                                      #
-#     * Save-SocialNetworks.                                                                             #
-#     * Save-ConsolePrograms.                                                                            #
+#     * SaveAll.                                                                                        #
+#     * SaveGeneral.                                                                            #
+#     * SaveDevelopment                                                                         #
+#     * SaveBrowser.                                                                                   #
+#     * SaveGame.                                                                                      #
+#     * SaveSocial.                                                                             #
+#     * SaveConsole.                                                                            #
 #                                                                                                        #
 ##########################################################################################################
 $functionContentDownload = @'
 ##########################################################################################################
 #                                            DOWNLOAD SCRIPTS                                            #
 ##########################################################################################################
-function Save-GeneralPrograms {
+function SaveGeneral {
     Write-Host "Descargando General Programs" -ForegroundColor Cyan
 
     $generalPrograms = Get-ProgramJson -category "generalPrograms"
@@ -33,7 +33,7 @@ function Save-GeneralPrograms {
     }
 }
 
-function Save-DevelopmentPrograms {
+function SaveDevelopment {
     Write-Host "Descargando programas Development " -ForegroundColor Cyan
 
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
@@ -51,7 +51,7 @@ function Save-DevelopmentPrograms {
     }
 }
 
-function Save-Browsers {
+function SaveBrowser {
     Write-Host "Descargando programas Browser" -ForegroundColor Cyan
 
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
@@ -68,7 +68,7 @@ function Save-Browsers {
     }
 }
 
-function Save-Games {
+function SaveGame {
     Write-Host "Descargando programas Gaming" -ForegroundColor Cyan
 
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
@@ -85,7 +85,7 @@ function Save-Games {
     }
 }
 
-function Save-SocialNetworks {
+function SaveSocial {
     Write-Host "Descargando programas Social Network" -ForegroundColor Cyan
 
     $socialNetworkPrograms = Get-ProgramJson -category "socialNetworkPrograms"
@@ -102,7 +102,7 @@ function Save-SocialNetworks {
     }
 }
 
-function Save-ConsolePrograms {
+function SaveConsole {
     Write-Host "Descargando programas Console" -ForegroundColor Cyan
 
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
@@ -133,14 +133,14 @@ function Save-ConsolePrograms {
     }
 }
 
-function Save-All {
+function SaveAll {
     Write-Host "Descargando todos los programas de la lista." -ForegroundColor Cyan
-    Save-GeneralPrograms
-    Save-DevelopmentPrograms
-    Save-Browsers
-    Save-Games
-    Save-SocialNetworks
-    Save-ConsolePrograms
+    SaveGeneral
+    SaveDevelopment
+    SaveBrowser
+    SaveGame
+    SaveSocial
+    SaveConsole
 }
 '@
 

@@ -6,13 +6,13 @@
 #     * Get-ProgramJson.                                                                                 #
 #     * Test-And-Install-Dependencies.                                                                   #
 #     * Add-InitializationLine.                                                                          #
-#     * Install-All.                                                                                     #
-#     * Install-GeneralPrograms.                                                                         #
-#     * Install-DevelopmentPrograms                                                                      #
-#     * Install-Browsers.                                                                                #
-#     * Install-Games.                                                                                   #
-#     * Install-SocialNetworks.                                                                          #
-#     * Install-ConsolePrograms.                                                                         #
+#     * InstallAll.                                                                                     #
+#     * InstallGeneral.                                                                         #
+#     * InstallDevelopment                                                                      #
+#     * InstallBrowser.                                                                                #
+#     * InstallGame.                                                                                   #
+#     * InstallSocial.                                                                          #
+#     * InstallConsole.                                                                         #
 #                                                                                                        #
 ##########################################################################################################
 
@@ -214,7 +214,7 @@ function Add-InitializationLine {
     )
     switch ($programID) {
         "Schniz.fnm" {
-            $fnmInit = "fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression"
+            $fnmInit = "fnm env --use-on-cd | Out-String | Invoke-Expression"
             $profileContent = Get-Content -Path $profilePath
 
             $lineExists = $false
@@ -226,10 +226,10 @@ function Add-InitializationLine {
             }
             if (-not $lineExists) {
                 Add-Content -Path $profilePath -Value "`r`n$fnmInit`r`n"
-                Write-Host "Inicialización de $programa añadida al perfil de PowerShell." -ForegroundColor Green
+                Write-Host "Inicialización de $programID añadida al perfil de PowerShell." -ForegroundColor Green
             }
             else {
-                Write-Host "Inicialización de $programa ya existe en el perfil de PowerShell." -ForegroundColor Green
+                Write-Host "Inicialización de $programID ya existe en el perfil de PowerShell." -ForegroundColor Green
             }
         }
         "Terminal-Icons" {
@@ -259,7 +259,7 @@ function Add-InitializationLine {
 ##########################################################################################################
 #                                          INSTALLATION SCRIPTS                                          #
 ##########################################################################################################
-function Install-CustomProgram {
+function InstallCustom {
     param (
         [string]$programID
     )
@@ -282,7 +282,7 @@ function Install-CustomProgram {
             }
         }
         "Git.Git" {
-            winget install $programID --override '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /o:COMPONENTS=icons,ext\reg\shellhere,gitlfs,assoc,assoc_sh /o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main /o:PathOption=Cmd /o:SSHOption=OpenSSH /o:CurlOption=OpenSSL /o:CRLFOption=CRLFAlways /o:BashTerminalOption=MinTTY /o:GitPullBehaviorOption=Merge /o:UseCredentialManager=Enabled /o:PerformanceTweaksFSCache=Enabled /o:EnablePseudoConsoleSupport=Disabled'
+            winget install -e --id $programID --override '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /o:COMPONENTS=icons,ext\reg\shellhere,gitlfs,assoc,assoc_sh /o:EditorOption=VisualStudioCode /o:DefaultBranchOption=main /o:PathOption=Cmd /o:SSHOption=OpenSSH /o:CurlOption=OpenSSL /o:CRLFOption=CRLFAlways /o:BashTerminalOption=MinTTY /o:GitPullBehaviorOption=Merge /o:UseCredentialManager=Enabled /o:PerformanceTweaksFSCache=Enabled /o:EnablePseudoConsoleSupport=Disabled'
         }
         "Microsoft.SQLServer.2022.Developer" {
             winget install -e --id $programID --override "/ENU /IACCEPTSQLSERVERLICENSETERMS /QUIET /HIDEPROGRESSBAR /VERBOSE /ACTION=Install /LANGUAGE=en-US"
@@ -359,82 +359,81 @@ function Install-CustomProgram {
     }
 }
 
-function Install-GeneralPrograms {
+function InstallGeneral {
     Write-Host "Instalando General Programs." -ForegroundColor Cyan
     $generalPrograms = Get-ProgramJson -category "generalPrograms"
 
     foreach ($programa in $generalPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa
+        InstallCustom -programID $programa
     }
 }
 
-function Install-DevelopmentPrograms {
+function InstallDevelopment {
     Write-Host "Instalando programas Development." -ForegroundColor Cyan
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
 
     foreach ($programa in $developmentPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa 
+        InstallCustom -programID $programa 
     }
 }
 
-function Install-Browsers {
+function InstallBrowser {
     Write-Host "Instalando programas Browser." -ForegroundColor Cyan
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
 
     foreach ($programa in $browserPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa
+        InstallCustom -programID $programa
     }
 }
 
-function Install-Games {
+function InstallGame {
     Write-Host "Instalando programas Gaming." -ForegroundColor Cyan
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
 
-    $gamingPrograms = $global:ProgramData.gamingPrograms
     foreach ($programa in $gamingPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa
+        InstallCustom -programID $programa
     }
 }
 
-function Install-SocialNetworks {
+function InstallSocial {
     Write-Host "Instalando programas Social Network." -ForegroundColor Cyan
     $socialNetworkPrograms = Get-ProgramJson -category "socialNetworkPrograms"
 
     foreach ($programa in $socialNetworkPrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa
+        InstallCustom -programID $programa
     }
 }
 
-function Install-ConsolePrograms {
+function InstallConsole {
     Write-Host "Instalando programas Console." -ForegroundColor Cyan
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
 
     foreach ($programa in $consolePrograms) {
         Write-Host "Instalando $programa." -ForegroundColor DarkBlue
-        Install-CustomProgram -programID $programa
+        InstallCustom -programID $programa
     }
 }
 
-function Install-All {
+function InstallAll {
     Write-Host "Instalando todos los programas de la lista." -ForegroundColor DarkBlue
-    Install-GeneralPrograms
-    Install-DevelopmentPrograms
-    Install-Browsers
-    Install-Games
-    Install-SocialNetworks
-    Install-ConsolePrograms
+    InstallGeneral
+    InstallDevelopment
+    InstallBrowser
+    InstallGame
+    InstallSocial
+    InstallConsole
 }
 
 ##########################################################################################################
 #                                            UPDATE BLOCKING                                             #
 ##########################################################################################################
 
-function Blocking-Programs{
+function BlockingProgram{
     winget pin add --id Microsoft.VisualStudio.2022.Community --blocking
     winget pin add --id Microsoft.VisualStudio.2022.BuildTools --blocking
     winget pin add --id Unity.Unity.2021 --blocking

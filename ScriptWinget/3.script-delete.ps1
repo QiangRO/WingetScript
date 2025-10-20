@@ -3,13 +3,13 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Uninstall-All.                                                                                   #
-#     * Uninstall-GeneralPrograms.                                                                       #
-#     * Uninstall-DevelopmentPrograms                                                                    #
-#     * Uninstall-Browsers.                                                                              #
-#     * Uninstall-Games.                                                                                 #
-#     * Uninstall-SocialNetworks.                                                                        #
-#     * Uninstall-ConsolePrograms.                                                                       #
+#     * UninstallAll.                                                                                   #
+#     * UninstallGeneral.                                                                       #
+#     * UninstallDevelopment                                                                    #
+#     * UninstallBrowser.                                                                              #
+#     * UninstallGame.                                                                                 #
+#     * UninstallSocial.                                                                        #
+#     * UninstallConsole.                                                                       #
 #                                                                                                        #
 ##########################################################################################################
 $functionContentDelete = @'
@@ -17,7 +17,7 @@ $functionContentDelete = @'
 #                                             DELETE SCRIPTS                                             #
 ##########################################################################################################
 
-function Uninstall-GeneralPrograms {
+function UninstallGeneral {
     $generalPrograms = Get-ProgramJson -category "generalPrograms"
     Write-Host "Desinstalando Programas" -ForegroundColor Cyan
     foreach ($programa in $generalPrograms) {
@@ -26,7 +26,7 @@ function Uninstall-GeneralPrograms {
     }
 }
 
-function Uninstall-DevelopmentPrograms {
+function UninstallDevelopment {
     Write-Host "Desinstalando programas Development" -ForegroundColor Cyan
 
     $developmentPrograms = Get-ProgramJson -category "developmentPrograms"
@@ -37,7 +37,7 @@ function Uninstall-DevelopmentPrograms {
     }
 }
 
-function Uninstall-Browsers {
+function UninstallBrowser {
     Write-Host "Desinstalando programas Browser" -ForegroundColor Cyan
 
     $browserPrograms = Get-ProgramJson -category "browserPrograms"
@@ -48,7 +48,7 @@ function Uninstall-Browsers {
     }
 }
 
-function Uninstall-Games {
+function UninstallGame {
     Write-Host "Desinstalando programas Gaming" -ForegroundColor Cyan
 
     $gamingPrograms = Get-ProgramJson -category "gamingPrograms"
@@ -59,7 +59,7 @@ function Uninstall-Games {
     }
 }
 
-function Uninstall-SocialNetworks {
+function UninstallSocial {
     Write-Host "Desinstalando programas Social Network" -ForegroundColor Cyan
 
     $socialNetworkPrograms =  Get-ProgramJson -category "socialNetworkPrograms"
@@ -70,7 +70,7 @@ function Uninstall-SocialNetworks {
     }
 }
 
-function Uninstall-ConsolePrograms {
+function UninstallConsole {
     Write-Host "Desinstalando programas Console" -ForegroundColor Cyan
 
     $consolePrograms = Get-ProgramJson -category "consolePrograms"
@@ -81,14 +81,14 @@ function Uninstall-ConsolePrograms {
     }
 }
 
-function Uninstall-All {
+function UninstallAll {
     Write-Host "Desinstalando todos los programas de la lista." -ForegroundColor DarkBlue
-    Uninstall-GeneralPrograms
-    Uninstall-DevelopmentPrograms
-    Uninstall-Browsers
-    Uninstall-Games
-    Uninstall-SocialNetworks
-    Uninstall-ConsolePrograms
+    UninstallGeneral
+    UninstallDevelopment
+    UninstallBrowser
+    UninstallGame
+    UninstallSocial
+    UninstallConsole
 }
 '@
 
