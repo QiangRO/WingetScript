@@ -290,7 +290,7 @@ function ShowUtilityHelp {
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
     Write-Host "`t1. AddWin10" -ForegroundColor DarkMagenta
-    Write-Host "`t2. Add-Win11" -ForegroundColor DarkMagenta
+    Write-Host "`t2. AddWin11" -ForegroundColor DarkMagenta
     Write-Host "`t3. ExportDirectory" -ForegroundColor DarkMagenta
     Write-Host "`t4. TestColor" -ForegroundColor DarkMagenta
     Write-Host "`tShowUtilityHelp(espacio+opción)" -ForegroundColor DarkMagenta
@@ -302,8 +302,8 @@ function ShowUtilityHelp {
             AddWin10
         }
         "2"{
-            Write-Host "Ejecutando funcion 'Add-Win11'." -ForegroundColor DarkBlue
-            Add-Win11
+            Write-Host "Ejecutando funcion 'AddWin11'." -ForegroundColor DarkBlue
+            AddWin11
         }   
         "3"{
             Write-Host "Ejecutando funcion 'ExportDirectory'." -ForegroundColor DarkBlue
