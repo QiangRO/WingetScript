@@ -52,7 +52,8 @@ $functionContentInstall =@'
 $scriptPath = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $jsonPath = Join-Path -Path $scriptPath -ChildPath "ProgramasId.json"
 
-$profilePath = Join-Path -Path $scriptPath -ChildPath "Microsoft.PowerShell_profile.ps1"
+#$profilePath = Join-Path -Path $scriptPath -ChildPath "Microsoft.PowerShell_profile.ps1"
+$profilePath = $PROFILE
 
 #OBTENEMOS RUTAS DE C:
 $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
