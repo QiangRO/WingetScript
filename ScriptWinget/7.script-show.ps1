@@ -289,25 +289,25 @@ function ShowUtilityHelp {
         [string]$promptContent
     )
     Write-Host "Funciones disponibles, ingrese una opción:" -ForegroundColor DarkMagenta
-    Write-Host "`t1. Add-MenuWindows10" -ForegroundColor DarkMagenta
-    Write-Host "`t2. Uninstall-MenuWindows10" -ForegroundColor DarkMagenta
-    Write-Host "`t3. Export-DirectoryTree" -ForegroundColor DarkMagenta
+    Write-Host "`t1. AddWin10" -ForegroundColor DarkMagenta
+    Write-Host "`t2. Add-Win11" -ForegroundColor DarkMagenta
+    Write-Host "`t3. ExportDirectory" -ForegroundColor DarkMagenta
     Write-Host "`t4. TestColor" -ForegroundColor DarkMagenta
     Write-Host "`tShowUtilityHelp(espacio+opción)" -ForegroundColor DarkMagenta
     Write-Host "`tShowHelp" -ForegroundColor DarkMagenta
     
     switch ($promptContent) {
         "1"{
-            Write-Host "Ejecutando funcion 'Add-MenuWindows10'." -ForegroundColor DarkBlue
-            Add-MenuWindows10
+            Write-Host "Ejecutando funcion 'AddWin10'." -ForegroundColor DarkBlue
+            AddWin10
         }
         "2"{
-            Write-Host "Ejecutando funcion 'Uninstall-MenuWindows10'." -ForegroundColor DarkBlue
-            Uninstall-MenuWindows10
+            Write-Host "Ejecutando funcion 'Add-Win11'." -ForegroundColor DarkBlue
+            Add-Win11
         }   
         "3"{
-            Write-Host "Ejecutando funcion 'Export-DirectoryTree'." -ForegroundColor DarkBlue
-            Export-DirectoryTree
+            Write-Host "Ejecutando funcion 'ExportDirectory'." -ForegroundColor DarkBlue
+            ExportDirectory
         }
         "4"{
             Write-Host "Ejecutando funcion 'TestColor'." -ForegroundColor DarkBlue

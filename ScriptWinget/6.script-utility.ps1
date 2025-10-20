@@ -3,9 +3,9 @@
 #                                                                                                        #
 #  This script will write the following functions to your Powershell Profile:                            #
 #                                                                                                        #
-#     * Add-MenuWindows10.                                                                               #
-#     * Uninstall-MenuWindows10.                                                                         #
-#     * Export-DirectoryTree                                                                             #
+#     * AddWin10.                                                                               #
+#     * Add-Win11.                                                                         #
+#     * ExportDirectory                                                                             #
 #     * TestColor                                                                                        #
 #                                                                                                        #
 #                                                                                                        #
@@ -16,7 +16,7 @@ $functionContentAdd =
 #                                      CONFIGURATION SYSTEM SCRIPTS                                      #
 ##########################################################################################################
 
-function Add-MenuWindows10 {
+function AddWin10 {
     $regPath = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
     if (!(Test-Path $regPath)) {
         Write-Host "Cambiando el menú contextual al estilo de Windows 10..." -ForegroundColor Yellow
@@ -33,7 +33,7 @@ function Add-MenuWindows10 {
     }
 }
 
-function Uninstall-MenuWindows10 {
+function Add-Win11 {
     $regPath = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
 
     if (Test-Path $regPath) {
@@ -53,7 +53,7 @@ function Uninstall-MenuWindows10 {
 ##########################################################################################################
 #                                            UTILITY SCRIPTS                                             # ##########################################################################################################
 
-function Export-DirectoryTree {
+function ExportDirectory {
     param(
         [Parameter(Mandatory = $true)]
         [string]$RootPath,
