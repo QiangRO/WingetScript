@@ -245,10 +245,10 @@ function Add-InitializationLine {
             }
             if (-not $lineExists) {
                 Add-Content -Path $profilePath -Value "`r`n$iconsInit`r`n"
-                Write-Host "Inicialización de $programa añadida al perfil de PowerShell." -ForegroundColor Green
+                Write-Host "Inicialización de $programID añadida al perfil de PowerShell." -ForegroundColor Green
             }
             else {
-                Write-Host "Inicialización de $programa ya existe en el perfil de PowerShell." -ForegroundColor Green
+                Write-Host "Inicialización de $programID ya existe en el perfil de PowerShell." -ForegroundColor Green
             }
         }
         default {
@@ -304,7 +304,7 @@ function InstallCustom {
         }
         "Microsoft.VisualStudioCode" {
             if (Test-And-Install-DotNetEnvironment) {
-                winget install $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
+                winget install -e --id $programID --override '/VERYSILENT /SP- /MERGETASKS="!runcode,!desktopicon,!quicklaunchicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
             }else{
                 Write-Host "Hubo un error al instalar Dotnet 8 o Dotnet Preview"
             }
@@ -339,7 +339,8 @@ function InstallCustom {
         }
         #CONSOLEPROGRAMS
         "Terminal-Icons" {
-            Install-Module -Name $programID -Repository PSGallery
+            #Install-Module -Name $programID -Repository PSGallery
+            Install-Module -Name $programID -Repository PSGallery -Scope CurrentUser -Force
             Add-InitializationLine -programID $programID
         }
         "pyenv"{
