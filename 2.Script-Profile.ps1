@@ -60,7 +60,7 @@ function Start-CopyJSONPrograms {
 
 Function Add-OhmyposhlineToProfile{
     $mythemePath = Join-Path $env:LOCALAPPDATA "$env:POSH_THEMES_PATH\my-theme.omp.json"
-    $ohmyposhInit = "oh-my-posh init pwsh --config "$mythemePath" | Invoke-Expression"
+    $ohmyposhInit = "oh-my-posh init pwsh --config '$mythemePath' | Invoke-Expression"
 
     $profileContent = Get-Content -Path $profilePath -Raw
     $lineExists = $false
