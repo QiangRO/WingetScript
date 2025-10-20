@@ -75,8 +75,8 @@ function ExportDirectory {
         
         $script:processedItems++
         Write-Progress -Activity "Exportando árbol de carpetas..." `
-                       -Status "Procesando: $($Path)" `
-                       -PercentComplete (($script:processedItems / $script:totalItems) * 100)
+                        -Status "Procesando: $($Path)" `
+                        -PercentComplete (($script:processedItems / $script:totalItems) * 100)
 
         # Listamos primero las subcarpetas
         Get-ChildItem -Path $Path -Directory -Force | Sort-Object Name | ForEach-Object {
@@ -90,8 +90,8 @@ function ExportDirectory {
             
             $script:processedItems++
             Write-Progress -Activity "Exportando árbol de carpetas..." `
-                           -Status "Procesando: $($_.FullName)" `
-                           -PercentComplete (($script:processedItems / $script:totalItems) * 100)
+                            -Status "Procesando: $($_.FullName)" `
+                            -PercentComplete (($script:processedItems / $script:totalItems) * 100)
         }
     }
 
