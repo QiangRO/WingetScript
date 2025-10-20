@@ -9,7 +9,6 @@
 #                                                                                                        #
 #     * Start-ThirdScript                                                                                #
 #     * Start-ScriptInstall                                                                              #
-#     * Start-ScriptInstall                                                                              #
 #     * Start-ScriptDownload                                                                             #
 #     * Start-ScriptDelete                                                                               #
 #     * Start-ScriptUpdate                                                                               #
