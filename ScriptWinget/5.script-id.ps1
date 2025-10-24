@@ -104,7 +104,6 @@ function NewId {
 
 function RemoveId {
     param (
-        [string]$jsonPath,
         [string]$targetId
     )
 
@@ -156,10 +155,6 @@ function RemoveId {
 }
 
 function UpdateId {
-    param (
-        [string]$jsonPath
-    )
-
     if (-not (Test-Path -Path $jsonPath)) {
         Write-Host "Error: No se encontró el archivo JSON en la ruta proporcionada." -ForegroundColor Red
         return
